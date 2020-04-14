@@ -1,0 +1,17 @@
+def load(h):
+    return ({'abbr': 192, 'code': 192, 'title': 'Pressure perturbation(Pa)'},
+            {'abbr': 193,
+             'code': 193,
+             'title': 'u-momentum flux due to SSO-effects',
+             'units': 'initialisation)(N m-2'},
+            {'abbr': 194,
+             'code': 194,
+             'title': 'v-momentum flux due to SSO-effects',
+             'units': 'initialisation)(N m-2'},
+            {'abbr': 195, 'code': 195, 'title': '3 hour pressure change(Pa-3h)'},
+            {'abbr': 196,
+             'code': 196,
+             'title': 'Height of -10 degree Celsius isotherm(m)'},
+            {'abbr': 197,
+             'code': 197,
+             'title': 'Pressure difference between cloud base and cloud top(Pa)'})

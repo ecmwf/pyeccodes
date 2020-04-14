@@ -1,0 +1,16 @@
+def load(h):
+    return ({'abbr': 0, 'code': 0, 'title': 'No risk area'},
+            {'abbr': 1, 'code': 1, 'title': 'Reserved'},
+            {'abbr': 2, 'code': 2, 'title': 'General thunderstorm risk area'},
+            {'abbr': 3, 'code': 3, 'title': 'Reserved'},
+            {'abbr': 4, 'code': 4, 'title': 'Slight risk area'},
+            {'abbr': 5, 'code': 5, 'title': 'Reserved'},
+            {'abbr': 6, 'code': 6, 'title': 'Moderate risk area'},
+            {'abbr': 7, 'code': 7, 'title': 'Reserved'},
+            {'abbr': 8, 'code': 8, 'title': 'High risk area'},
+            {'abbr': 11,
+             'code': 11,
+             'title': 'Dry thunderstorm (dry lightning) risk area'},
+            {'abbr': 14, 'code': 14, 'title': 'Critical risk area'},
+            {'abbr': 18, 'code': 18, 'title': 'Extremely critical risk area'},
+            {'abbr': None, 'code': 255, 'title': 'Missing'})

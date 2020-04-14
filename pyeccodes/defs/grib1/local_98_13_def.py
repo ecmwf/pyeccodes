@@ -1,0 +1,88 @@
+import pyeccodes.accessors as _
+
+
+def load(h):
+
+    _.Template('grib1/mars_labeling.def').load(h)
+    h.add(_.Unsigned('perturbationNumber', 1))
+    h.alias('number', 'perturbationNumber')
+    h.add(_.Unsigned('numberOfForecastsInEnsemble', 1))
+    h.alias('totalNumber', 'numberOfForecastsInEnsemble')
+    h.add(_.Unsigned('directionNumber', 1))
+    h.alias('mars.direction', 'directionNumber')
+    h.add(_.Unsigned('frequencyNumber', 1))
+    h.alias('mars.frequency', 'frequencyNumber')
+    h.add(_.Unsigned('numberOfDirections', 1))
+    h.alias('totalNumberOfDirections', 'numberOfDirections')
+    h.add(_.Unsigned('numberOfFrequencies', 1))
+    h.alias('totalNumberOfFrequencies', 'numberOfFrequencies')
+    h.add(_.Unsigned('directionScalingFactor', 4))
+    h.alias('integerScalingFactorAppliedToDirections', 'directionScalingFactor')
+    h.add(_.Unsigned('frequencyScalingFactor', 4))
+    h.alias('integerScalingFactorAppliedToFrequencies', 'frequencyScalingFactor')
+    h.add(_.Constant('localFlagLatestVersion', 4))
+    h.add(_.Codetable('localFlag', 1, "grib1/local.13.table"))
+
+    if (h.get_l('localFlag') == 0):
+        h.add(_.Pad('padding_loc13_1', 36))
+
+    if (h.get_l('localFlag') == 1):
+        h.add(_.Unsigned('systemNumber', 2))
+        h.add(_.Unsigned('methodNumber', 2))
+        h.alias('system', 'systemNumber')
+        h.alias('method', 'methodNumber')
+        h.add(_.Pad('padding_loc13_2', 32))
+
+    if (h.get_l('localFlag') == 2):
+        h.add(_.Unsigned('systemNumber', 2))
+        h.add(_.Unsigned('methodNumber', 2))
+        h.add(_.Unsigned('referenceDate', 4))
+        h.add(_.Unsigned('climateDateFrom', 4))
+        h.add(_.Unsigned('climateDateTo', 4))
+        h.alias('system', 'systemNumber')
+        h.alias('method', 'methodNumber')
+        h.alias('refdate', 'referenceDate')
+        h.add(_.Pad('padding_loc13_3', 20))
+
+    if (h.get_l('localFlag') == 3):
+        h.add(_.Unsigned('systemNumber', 2))
+        h.add(_.Unsigned('methodNumber', 2))
+        h.add(_.Unsigned('referenceDate', 4))
+        h.add(_.Unsigned('climateDateFrom', 4))
+        h.add(_.Unsigned('climateDateTo', 4))
+        h.add(_.Unsigned('legBaseDate', 4))
+        h.alias('baseDateOfThisLeg', 'legBaseDate')
+        h.add(_.Unsigned('legBaseTime', 2))
+        h.alias('baseTimeOfThisLeg', 'legBaseTime')
+        h.add(_.Unsigned('legNumber', 1))
+        h.add(_.Unsigned('oceanAtmosphereCoupling', 1))
+        h.add(_.Pad('padding_loc13_4', 12))
+        h.alias('system', 'systemNumber')
+        h.alias('method', 'methodNumber')
+        h.alias('refdate', 'referenceDate')
+        h.alias('mars._leg_number', 'legNumber')
+
+    if (h.get_l('localFlag') == 4):
+        h.add(_.Unsigned('systemNumber', 2))
+        h.add(_.Unsigned('methodNumber', 2))
+        h.add(_.Unsigned('referenceDate', 4))
+        h.add(_.Unsigned('climateDateFrom', 4))
+        h.add(_.Unsigned('climateDateTo', 4))
+        h.add(_.Unsigned('legBaseDate', 4))
+        h.alias('baseDateOfThisLeg', 'legBaseDate')
+        h.add(_.Unsigned('legBaseTime', 2))
+        h.alias('baseTimeOfThisLeg', 'legBaseTime')
+        h.add(_.Unsigned('legNumber', 1))
+        h.add(_.Unsigned('oceanAtmosphereCoupling', 1))
+        h.add(_.Unsigned('offsetToEndOf4DvarWindow', 2))
+        h.alias('anoffset', 'offsetToEndOf4DvarWindow')
+        h.add(_.Unsigned('lengthOf4DvarWindow', 2))
+        h.alias('system', 'systemNumber')
+        h.alias('method', 'methodNumber')
+        h.alias('refdate', 'referenceDate')
+        h.alias('mars._leg_number', 'legNumber')
+        h.add(_.Pad('padding_loc13_5', 8))
+
+    h.add(_.Unsigned('scaledDirections', 4, _.Get('numberOfDirections')))
+    h.add(_.Unsigned('scaledFrequencies', 4, _.Get('numberOfFrequencies')))
+    h.add(_.Constant('GRIBEXSection1Problem', (((100 + (4 * _.Get('numberOfDirections'))) + (4 * _.Get('numberOfFrequencies'))) - _.Get('section1Length'))))

@@ -1,0 +1,15 @@
+def load(h):
+    return ({'abbr': 192,
+             'code': 192,
+             'title': 'Delay of the GPS signal trough the',
+             'units': 'total) atm.(m'},
+            {'abbr': 193,
+             'code': 193,
+             'title': 'Delay of the GPS signal trough wet atmos.(m)'},
+            {'abbr': 194,
+             'code': 194,
+             'title': 'Delay of the GPS signal trough dry atmos.(m)'},
+            {'abbr': 195, 'code': 195, 'title': 'Radar Precipitation Rate(kg m-2 s-1)'},
+            {'abbr': 196, 'code': 196, 'title': 'Radar Quality Information(Proportion)'},
+            {'abbr': 197, 'code': 197, 'title': 'Radar Blacklist(Numeric)'},
+            {'abbr': 198, 'code': 198, 'title': 'Height of Radarbeam above Ground(m)'})

@@ -1,0 +1,32 @@
+import pyeccodes.accessors as _
+
+
+def load(h):
+
+    h.add(_.Constant('tablesVersionLatest', 25))
+    h.add(_.Constant('million', 1000000))
+    h.add(_.Constant('grib2divider', 1000000))
+    h.alias('extraDimensionPresent', 'zero')
+    h.alias('is_tigge', 'zero')
+    h.alias('is_s2s', 'zero')
+    h.add(_.Transient('is_efas', 0))
+    h.add(_.Transient('angleSubdivisions', _.Get('grib2divider')))
+    h.add(_.Gts_header('gts_header'))
+    h.add(_.Gts_header('gts_TTAAii', 20, 6))
+    h.add(_.Gts_header('gts_CCCC', 27, 4))
+    h.add(_.Gts_header('gts_ddhh00', 32, 6))
+    h.add(_.Transient('missingValue', 9999))
+    h.add(_.Constant('ieeeFloats', 1))
+    h.add(_.Constant('isHindcast', 0))
+    h.add(_.Position('offsetSection0'))
+    h.add(_.Constant('section0Length', 16))
+    h.add(_.Ascii('identifier', 4))
+    h.add(_.Unsigned('reserved', 2))
+    h.add(_.Codetable('discipline', 1, "0.0.table", _.Get('masterDir'), _.Get('localDir')))
+    h.add(_.Unsigned('editionNumber', 1))
+    h.alias('ls.edition', 'editionNumber')
+    h.add(_.Section_length('totalLength', 8))
+    h.add(_.Position('startOfHeaders'))
+    h.add(_.Section_pointer('section0Pointer', _.Get('offsetSection0'), _.Get('section0Length'), 0))
+    _.Template('grib2/sections.def').load(h)
+    _.Template('grib2/section.8.def').load(h)

@@ -1,0 +1,15 @@
+def load(h):
+    return ({'abbr': 'm', 'code': 0, 'title': 'Minute'},
+            {'abbr': 'h', 'code': 1, 'title': 'Hour'},
+            {'abbr': 'D', 'code': 2, 'title': 'Day'},
+            {'abbr': 'M', 'code': 3, 'title': 'Month'},
+            {'abbr': 'Y', 'code': 4, 'title': 'Year'},
+            {'abbr': '10Y', 'code': 5, 'title': 'Decade'},
+            {'abbr': '30Y', 'code': 6, 'title': 'Normal', 'units': '30 years'},
+            {'abbr': 'C', 'code': 7, 'title': 'Century'},
+            {'abbr': '3h', 'code': 10, 'title': '3 hours'},
+            {'abbr': '6h', 'code': 11, 'title': '6 hours'},
+            {'abbr': '12h', 'code': 12, 'title': '12 hours'},
+            {'abbr': '15m', 'code': 13, 'title': '15 minutes'},
+            {'abbr': '30m', 'code': 14, 'title': '30 minutes'},
+            {'abbr': 's', 'code': 254, 'title': 'Second'})

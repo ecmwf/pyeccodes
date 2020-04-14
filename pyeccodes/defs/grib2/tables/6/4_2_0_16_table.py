@@ -1,0 +1,17 @@
+def load(h):
+    return ({'abbr': 0,
+             'code': 0,
+             'title': 'Equivalent radar reflectivity factor for rain',
+             'units': 'mm6 m-3'},
+            {'abbr': 1,
+             'code': 1,
+             'title': 'Equivalent radar reflectivity factor for snow',
+             'units': 'mm6 m-3'},
+            {'abbr': 2,
+             'code': 2,
+             'title': 'Equivalent radar reflectivity factor for parameterized convection',
+             'units': 'mm6 m-3'},
+            {'abbr': 3, 'code': 3, 'title': 'Echo top', 'units': 'm'},
+            {'abbr': 4, 'code': 4, 'title': 'Reflectivity', 'units': 'dB'},
+            {'abbr': 5, 'code': 5, 'title': 'Composite reflectivity', 'units': 'dB'},
+            {'abbr': None, 'code': 255, 'title': 'Missing', 'units': '-'})

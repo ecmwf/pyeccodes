@@ -1,0 +1,17 @@
+def load(h):
+    return ({'bit': 0, 'on': 0, 'title': 'bit0_off'},
+            {'bit': 0, 'on': 1, 'title': 'bit0_on'},
+            {'bit': 1, 'on': 0, 'title': 'bit1_off'},
+            {'bit': 1, 'on': 1, 'title': 'bit1_on'},
+            {'bit': 2, 'on': 0, 'title': 'bit2_off'},
+            {'bit': 2, 'on': 1, 'title': 'bit2_on'},
+            {'bit': 3, 'on': 0, 'title': 'bit3_off'},
+            {'bit': 3, 'on': 1, 'title': 'bit3_on'},
+            {'bit': 4, 'on': 0, 'title': 'bit4_off'},
+            {'bit': 4, 'on': 1, 'title': 'bit4_on'},
+            {'bit': 5, 'on': 0, 'title': 'bit5_off'},
+            {'bit': 5, 'on': 1, 'title': 'bit5_on'},
+            {'bit': 6, 'on': 0, 'title': 'bit6_off'},
+            {'bit': 6, 'on': 1, 'title': 'bit6_on'},
+            {'bit': 7, 'on': 0, 'title': 'absent'},
+            {'bit': 7, 'on': 1, 'title': 'present'})

@@ -1,0 +1,16 @@
+def load(h):
+    return ({'abbr': 0, 'code': 0, 'title': 'Reserved'},
+            {'abbr': 1, 'code': 1, 'title': 'Urban land'},
+            {'abbr': 2, 'code': 2, 'title': 'Agriculture'},
+            {'abbr': 3, 'code': 3, 'title': 'Range land'},
+            {'abbr': 4, 'code': 4, 'title': 'Deciduous forest'},
+            {'abbr': 5, 'code': 5, 'title': 'Coniferous forest'},
+            {'abbr': 6, 'code': 6, 'title': 'Forest/wetland'},
+            {'abbr': 7, 'code': 7, 'title': 'Water'},
+            {'abbr': 8, 'code': 8, 'title': 'Wetlands'},
+            {'abbr': 9, 'code': 9, 'title': 'Desert'},
+            {'abbr': 10, 'code': 10, 'title': 'Tundra'},
+            {'abbr': 11, 'code': 11, 'title': 'Ice'},
+            {'abbr': 12, 'code': 12, 'title': 'Tropical forest'},
+            {'abbr': 13, 'code': 13, 'title': 'Savannah'},
+            {'abbr': None, 'code': 255, 'title': 'Missing'})

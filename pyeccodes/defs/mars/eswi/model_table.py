@@ -1,0 +1,15 @@
+def load(h):
+    return ({'abbr': 'none', 'code': 0, 'title': 'not set, default'},
+            {'abbr': 'ifs', 'code': 10, 'title': 'IFS'},
+            {'abbr': 'alaro', 'code': 20, 'title': 'ALARO'},
+            {'abbr': 'surfex', 'code': 21, 'title': 'SURFEX'},
+            {'abbr': 'arome', 'code': 22, 'title': 'AROME'},
+            {'abbr': 'hirlam', 'code': 30, 'title': 'HIRLAM'},
+            {'abbr': 'rca', 'code': 31, 'title': 'RCA'},
+            {'abbr': 'hiromb', 'code': 40, 'title': 'HIROMB'},
+            {'abbr': 'swan', 'code': 41, 'title': 'SWAN'},
+            {'abbr': 'hbm', 'code': 42, 'title': 'HBM'},
+            {'abbr': 'nemo', 'code': 43, 'title': 'NEMO'},
+            {'abbr': 'match', 'code': 50, 'title': 'MATCH'},
+            {'abbr': 'mesan', 'code': 60, 'title': 'MESAN'},
+            {'abbr': 'mescan', 'code': 61, 'title': 'MESCAN'})

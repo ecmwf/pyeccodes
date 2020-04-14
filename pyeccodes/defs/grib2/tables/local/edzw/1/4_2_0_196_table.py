@@ -1,0 +1,18 @@
+def load(h):
+    return ({'abbr': 1, 'code': 1, 'title': 'Prob Gewitter(Numeric)'},
+            {'abbr': 2, 'code': 2, 'title': 'Prob Starkes Gewitter(Numeric)'},
+            {'abbr': 3, 'code': 3, 'title': 'Prob Schweres Gewitter(Numeric)'},
+            {'abbr': 4, 'code': 4, 'title': 'Prob Dauerregen(Numeric)'},
+            {'abbr': 5, 'code': 5, 'title': 'Prob Ergiebiger Dauerregen(Numeric)'},
+            {'abbr': 6, 'code': 6, 'title': 'Prob Extrem ergiebiger Dauerregen(Numeric)'},
+            {'abbr': 7, 'code': 7, 'title': 'Prob Schneeverwehung(Numeric)'},
+            {'abbr': 8, 'code': 8, 'title': 'Prob Starke Schneeverwehung(Numeric)'},
+            {'abbr': 9, 'code': 9, 'title': 'Prob Glaette(Numeric)'},
+            {'abbr': 10, 'code': 10, 'title': 'Prob oertlich Glatteis(Numeric)'},
+            {'abbr': 11, 'code': 11, 'title': 'Prob Glatteis(Numeric)'},
+            {'abbr': 12,
+             'code': 12,
+             'title': 'Prob Nebel',
+             'units': 'ueberoertl. Sichtweite < 150 m)(Numeric'},
+            {'abbr': 13, 'code': 13, 'title': 'Prob Tauwetter(Numeric)'},
+            {'abbr': 14, 'code': 14, 'title': 'Prob Starkes Tauwetter(Numeric)'})

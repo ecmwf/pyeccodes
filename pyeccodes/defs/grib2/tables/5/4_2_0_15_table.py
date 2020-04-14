@@ -1,0 +1,17 @@
+def load(h):
+    return ({'abbr': 0, 'code': 0, 'title': 'Base spectrum width', 'units': 'm s-1'},
+            {'abbr': 1, 'code': 1, 'title': 'Base reflectivity', 'units': 'dB'},
+            {'abbr': 2, 'code': 2, 'title': 'Base radial velocity', 'units': 'm s-1'},
+            {'abbr': 3,
+             'code': 3,
+             'title': 'Vertically-integrated liquid',
+             'units': 'kg m-1'},
+            {'abbr': 4,
+             'code': 4,
+             'title': 'Layer-maximum base reflectivity',
+             'units': 'dB'},
+            {'abbr': 5, 'code': 5, 'title': 'Precipitation', 'units': 'kg m-2'},
+            {'abbr': 6, 'code': 6, 'title': 'Radar spectra (1)', 'units': '-'},
+            {'abbr': 7, 'code': 7, 'title': 'Radar spectra (2)', 'units': '-'},
+            {'abbr': 8, 'code': 8, 'title': 'Radar spectra (3)', 'units': '-'},
+            {'abbr': None, 'code': 255, 'title': 'Missing', 'units': '-'})

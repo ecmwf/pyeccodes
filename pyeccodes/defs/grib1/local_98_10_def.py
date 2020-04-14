@@ -1,0 +1,31 @@
+import pyeccodes.accessors as _
+
+
+def load(h):
+
+    h.add(_.Constant('GRIBEXSection1Problem', (334 - _.Get('section1Length'))))
+    _.Template('grib1/mars_labeling.def').load(h)
+    h.add(_.Unsigned('tubeNumber', 1))
+    h.add(_.Unsigned('totalNumberOfTubes', 1))
+    h.add(_.Unsigned('centralClusterDefinition', 1))
+    h.add(_.Unsigned('parameterIndicator', 1))
+    h.add(_.Unsigned('levelIndicator', 1))
+    h.add(_.Signed('northLatitudeOfDomainOfTubing', 3))
+    h.add(_.Signed('westLongitudeOfDomainOfTubing', 3))
+    h.add(_.Signed('southLatitudeOfDomainOfTubing', 3))
+    h.add(_.Signed('eastLongitudeOfDomainOfTubing', 3))
+    h.add(_.Unsigned('numberOfOperationalForecastTube', 1))
+    h.add(_.Unsigned('numberOfControlForecastTube', 1))
+    h.add(_.Unsigned('heightOrPressureOfLevel', 2))
+    h.add(_.Unsigned('referenceStep', 2))
+    h.add(_.Unsigned('radiusOfCentralCluster', 2))
+    h.add(_.Unsigned('ensembleStandardDeviation', 2))
+    h.add(_.Unsigned('distanceFromTubeToEnsembleMean', 2))
+    h.add(_.Unsigned('numberOfForecastsInTube', 1))
+    h.add(_.Unsigned('ensembleForecastNumbers', 1, _.Get('numberOfForecastsInTube')))
+    h.add(_.Padto('padding_loc10_1', (_.Get('offsetSection1') + 334)))
+    h.add(_.Concept('tubeDomain', 'unknown', 'tube_domain.def', 'conceptsMasterDir', 'conceptsLocalDirAll', False))
+    h.alias('number', 'tubeNumber')
+    h.alias('totalNumber', 'totalNumberOfTubes')
+    h.alias('reference', 'referenceStep')
+    h.alias('domain', 'tubeDomain')

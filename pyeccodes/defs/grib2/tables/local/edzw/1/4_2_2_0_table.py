@@ -1,0 +1,26 @@
+def load(h):
+    return ({'abbr': 192,
+             'code': 192,
+             'title': 'ratio of monthly mean NDVI (normalized differential vegetation '
+                      'index) to annual maximum',
+             'units': '1'},
+            {'abbr': 193, 'code': 193, 'title': 'Latent heat flux from bare soil(W m-2)'},
+            {'abbr': 194, 'code': 194, 'title': 'Latent heat flux from plants(W m-2)'},
+            {'abbr': 195, 'code': 195, 'title': 'Stomatal Resistance(s m-1)'},
+            {'abbr': 196,
+             'code': 196,
+             'title': 'Impervious',
+             'units': 'paved or sealed) surface fraction(Proportion'},
+            {'abbr': 197,
+             'code': 197,
+             'title': 'Antropogenic heat flux',
+             'units': 'e.g. urban heating, traffic)(W m-2'},
+            {'abbr': 198,
+             'code': 198,
+             'title': 'evaporation of plants',
+             'units': 'integrated since "nightly reset")(kgm-2'},
+            {'abbr': 199,
+             'code': 199,
+             'title': 'skin conductivity',
+             'units': 'ratio ground heat flux to temperature difference soil-skin '
+                      'layer)(W m-2 K-1'})
