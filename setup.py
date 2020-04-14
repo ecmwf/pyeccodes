@@ -42,6 +42,7 @@ setuptools.setup(
     url='https://github.com/b8raoult/pyeccodes',
     description="Experimental pure Python version of eccodes",
     long_description=read('README.md'),
+    long_description_content_type='text/markdown',
     packages=setuptools.find_packages(),
     include_package_data=True,
     install_requires=[
