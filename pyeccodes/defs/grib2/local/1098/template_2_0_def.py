@@ -9,8 +9,8 @@ def load(h):
     def tiggeLAMName_inline_concept(h):
         def wrapped(h):
 
-            tiggeCentre = h.get('tiggeCentre')
-            tiggeModel = h.get('tiggeModel')
+            tiggeCentre = h.get_l('tiggeCentre')
+            tiggeModel = h.get_l('tiggeModel')
 
             if tiggeCentre == 0 and tiggeModel == 0:
                 return 'MOGREPS-MO- EUA'

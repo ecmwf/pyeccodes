@@ -7,16 +7,11 @@
 # virtue of its status as an intergovernmental organisation nor does it submit to any jurisdiction.
 
 import weakref
-import mmap
-import os
 from collections import OrderedDict
 from .base import ListAccessor
-import numpy as np
 
 from .templates import Template
 
-# TODO: remove me
-np.set_printoptions(threshold=64)
 
 UNSET = object()
 
@@ -70,8 +65,7 @@ class Handle:
         return False
 
     def _missing(self, *ignore):
-        # TODO
-        return False
+        return None
 
     def _gribex_mode_on(self):
         return False
@@ -80,6 +74,7 @@ class Handle:
         return name in self._keys
 
     def _add(self, accessor):
+        # print("DECACHE")
         self._cache = {}
         self._keys[accessor.name] = accessor
 
@@ -87,7 +82,15 @@ class Handle:
 
         name = self._aliases.get(name, name)
 
-        return self._keys.get(name)
+        accessor = self._keys.get(name)
+        if accessor is None:
+            for alias, target in self._aliases.items():
+                if '.' in alias:
+                    _, n = alias.split('.')
+                    if n == name:
+                        accessor = self._keys.get(target)
+
+        return accessor
 
     def raw(self, name):
         return self._get(name).raw(self)
@@ -98,6 +101,7 @@ class Handle:
             return None
 
         value = self._cache.get((name, kind), UNSET)
+        # print("GET", name, kind, 'CACHE', value is not UNSET)
 
         if value is UNSET:
 
@@ -106,6 +110,7 @@ class Handle:
             else:
                 value = accessor.get(self)
 
+            # print("CACHE", name, kind, value)
             self._cache[(name, kind)] = value
 
         return value
@@ -166,165 +171,10 @@ class Handle:
     def aliases(self, accessor):
         return [name for name, target in self._aliases.items() if target == accessor.name]
 
+    def namespace(self, space):
+        space = space + '.'
+        return [name for name in self._aliases.keys() if name.startswith(space)] +\
+               [name for name in self._keys.keys() if name.startswith(space)]
 
-class GribReader:
-
-    def get(self, count):
-        n = 0
-        for i in range(0, count):
-            n = n * 256 + int(self.read(1)[0])
-        return n
-
-    def at(self, index, count=1):
-        here = self.tell()
-        self.seek(self.offset + index)
-        n = self.get(count)
-        self.seek(here)
-        return n
-
-    def next_buffer(self):
-
-        while True:
-            self.offset = self.tell()
-            code = self.read(4)
-            if len(code) < 4:
-                return None, self.offset, 0
-
-            if code != b'GRIB':
-                self.seek(self.offset + 1)
-                continue
-
-            length = self.get(3)
-            edition = self.get(1)
-
-            if edition == 1:
-                sec1len = self.get(3)
-                self.skip(sec1len - 3)
-                flags = self.at(15)
-
-                if flags & (1 << 7):
-                    sec2len = self.get(3)
-                    self.skip(sec2len - 3)
-
-                if flags & (1 << 6):
-                    sec3len = self.get(3)
-                    self.skip(sec3len - 3)
-
-                sec4len = self.get(3)
-                self.skip(sec4len - 3)
-
-                if (sec4len < 120):
-                    length &= 0x7fffff
-                    length *= 120
-                    length -= sec4len
-                    length += 4
-
-            else:
-                length = self.get(8)
-
-            self.seek(self.offset)
-            return self.read(length), self.offset, length
-
-
-class MmapReader(GribReader):
-
-    def __init__(self, path):
-        self.f = os.open(path, os.O_RDONLY)
-        self.buffer = mmap.mmap(self.f, 0, prot=mmap.PROT_READ)
-        self.pos = 0
-        self.size = len(self.buffer)
-
-    def tell(self):
-        return self.pos
-
-    def seek(self, pos):
-        self.pos = pos
-
-    def skip(self, count):
-        self.pos = min(self.pos + count, self.size)
-
-    def read(self, count):
-        start = self.pos
-        end = min(self.pos + count, self.size)
-        self.pos = end
-        return self.buffer[start:end]
-
-    def __del__(self):
-        self.buffer.close()
-        os.close(self.f)
-
-
-class FileReader(GribReader):
-
-    def __init__(self, f):
-        assert 'b' in f.mode, "Files must be open in binary mode"
-        self.f = f
-        self.offset = f.tell()
-
-    def skip(self, count):
-        self.f.seek(count, 1)
-
-    def seek(self, where):
-        self.f.seek(where)
-
-    def tell(self):
-        return self.f.tell()
-
-    def read(self, count):
-        return self.f.read(count)
-
-
-class UserFileReader(FileReader):
-    pass
-
-
-class OwnedFileReader(FileReader):
-
-    def __init__(self, path):
-        super().__init__(open(path, 'rb'))
-
-    def __del__(self):
-        self.f.close()
-
-
-class Reader:
-
-    def __init__(self, path, debug=False):
-
-        # This must be a file
-        if hasattr(path, 'read') and hasattr(path, 'seek'):
-            self._reader = FileReader(path)
-        else:
-            self._reader = OwnedFileReader(path)
-
-        self.debug = debug
-        self.count = 0
-        self.compat = False
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        h = self.next_handle()
-        if h is None:
-            raise StopIteration()
-        return h
-
-    def next_handle(self):
-
-        self._buffer, self.offset, self.length = self._reader.next_buffer()
-
-        if self._buffer is None:
-            return None
-
-        self.count += 1
-
-        self.buffer = memoryview(self._buffer)
-
-        h = Handle(self.buffer, self.debug)
-        h.offset = self.offset
-        h.count = self.count
-        h.reader = self  # So we don't unmap the file
-
-        assert h.get('7777') == b'7777'
-        return h
+    def all_keys(self):
+        return list(self._keys.keys()) + list(self._aliases.keys())

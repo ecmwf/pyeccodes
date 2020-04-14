@@ -18,7 +18,7 @@ def load(h):
     h.add(_.Signed('laplacianScalingFactor', 4))
     h.add(_.Scale('laplacianOperator', _.Get('laplacianScalingFactor'), _.Get('one'), _.Get('million'), _.Get('truncateLaplacian')))
     h.alias('data.laplacianOperator', 'laplacianOperator')
-    h.add(_.Evaluate('laplacianOperatorIsSet', ((_.Get('laplacianScalingFactor') != _.Get('laplacianScalingFactorUnset')) and not (_.Get('computeLaplacianOperator')))))
+    h.add(_.Evaluate('laplacianOperatorIsSet', _.And((_.Get('laplacianScalingFactor') != _.Get('laplacianScalingFactorUnset')), _.Not(_.Get('computeLaplacianOperator')))))
     h.add(_.Unsigned('biFourierResolutionSubSetParameterN', 2))
     h.add(_.Unsigned('biFourierResolutionSubSetParameterM', 2))
     h.add(_.Unsigned('totalNumberOfValuesInUnpackedSubset', 4))

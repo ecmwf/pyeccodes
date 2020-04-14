@@ -22,7 +22,7 @@ def load(h):
     h.add(_.Signed('laplacianScalingFactor', 4))
     h.add(_.Scale('laplacianOperator', _.Get('laplacianScalingFactor'), _.Get('one'), _.Get('million'), _.Get('truncateLaplacian')))
     h.alias('data.laplacianOperator', 'laplacianOperator')
-    h.add(_.Evaluate('laplacianOperatorIsSet', ((_.Get('laplacianScalingFactor') != _.Get('laplacianScalingFactorUnset')) and not (_.Get('computeLaplacianOperator')))))
+    h.add(_.Evaluate('laplacianOperatorIsSet', _.And((_.Get('laplacianScalingFactor') != _.Get('laplacianScalingFactorUnset')), _.Not(_.Get('computeLaplacianOperator')))))
     h.add(_.Transient('JS', 20))
     h.add(_.Transient('KS', 20))
     h.add(_.Transient('MS', 20))

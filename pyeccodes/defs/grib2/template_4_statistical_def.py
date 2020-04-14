@@ -30,12 +30,12 @@ def load(h):
         def stepTypeInternal_inline_concept(h):
             def wrapped(h):
 
-                typeOfStatisticalProcessing = h.get('typeOfStatisticalProcessing')
+                typeOfStatisticalProcessing = h.get_l('typeOfStatisticalProcessing')
 
                 if typeOfStatisticalProcessing == 255:
                     return 'instant'
 
-                typeOfTimeIncrement = h.get('typeOfTimeIncrement')
+                typeOfTimeIncrement = h.get_l('typeOfTimeIncrement')
 
                 if typeOfStatisticalProcessing == 0 and typeOfTimeIncrement == 2:
                     return 'avg'

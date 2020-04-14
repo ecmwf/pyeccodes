@@ -43,8 +43,8 @@ def load(h):
     def gridType_inline_concept(h):
         def wrapped(h):
 
-            gridDefinitionTemplateNumber = h.get('gridDefinitionTemplateNumber')
-            PLPresent = h.get('PLPresent')
+            gridDefinitionTemplateNumber = h.get_l('gridDefinitionTemplateNumber')
+            PLPresent = h.get_l('PLPresent')
 
             if gridDefinitionTemplateNumber == 0 and PLPresent == 0:
                 return 'regular_ll'
@@ -79,9 +79,9 @@ def load(h):
             if gridDefinitionTemplateNumber == 40 and PLPresent == 0:
                 return 'regular_gg'
 
-            numberOfOctectsForNumberOfPoints = h.get('numberOfOctectsForNumberOfPoints')
-            iDirectionIncrementGiven = h.get('iDirectionIncrementGiven')
-            numberOfPointsAlongAParallel = h.get('numberOfPointsAlongAParallel')
+            numberOfOctectsForNumberOfPoints = h.get_l('numberOfOctectsForNumberOfPoints')
+            iDirectionIncrementGiven = h.get_l('iDirectionIncrementGiven')
+            numberOfPointsAlongAParallel = h.get_l('numberOfPointsAlongAParallel')
 
             if gridDefinitionTemplateNumber == 40 and PLPresent == 1 and numberOfOctectsForNumberOfPoints == 2 and iDirectionIncrementGiven == 0 and numberOfPointsAlongAParallel == h._missing():
                 return 'reduced_gg'

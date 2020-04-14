@@ -28,7 +28,7 @@ def load(h):
     def efas_post_proc_inline_concept(h):
         def wrapped(h):
 
-            typeOfPostProcessing = h.get('typeOfPostProcessing')
+            typeOfPostProcessing = h.get_l('typeOfPostProcessing')
 
             if typeOfPostProcessing == 0:
                 return 'unknown'
@@ -60,7 +60,7 @@ def load(h):
             if typeOfPostProcessing == 152:
                 return 'epic'
 
-            dummy = h.get('dummy')
+            dummy = h.get_l('dummy')
 
             if dummy == 1:
                 return 'unknown'

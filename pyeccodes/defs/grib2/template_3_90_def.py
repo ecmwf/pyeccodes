@@ -97,8 +97,8 @@ def load(h):
     def ijDirectionIncrementGiven_inline_concept(h):
         def wrapped(h):
 
-            iDirectionIncrementGiven = h.get('iDirectionIncrementGiven')
-            jDirectionIncrementGiven = h.get('jDirectionIncrementGiven')
+            iDirectionIncrementGiven = h.get_l('iDirectionIncrementGiven')
+            jDirectionIncrementGiven = h.get_l('jDirectionIncrementGiven')
 
             if iDirectionIncrementGiven == 1 and jDirectionIncrementGiven == 1:
                 return 1
@@ -146,7 +146,7 @@ def load(h):
     h.alias('geography.iScansNegatively', 'iScansNegatively')
     h.alias('geography.jScansPositively', 'jScansPositively')
     h.alias('geography.jPointsAreConsecutive', 'jPointsAreConsecutive')
-    h.add(_.Transient('iScansPositively', not (_.Get('iScansNegatively'))))
+    h.add(_.Transient('iScansPositively', _.Not(_.Get('iScansNegatively'))))
     h.add(_.Bit('scanningMode5', _.Get('scanningMode'), 3))
     h.add(_.Bit('scanningMode6', _.Get('scanningMode'), 2))
     h.add(_.Bit('scanningMode7', _.Get('scanningMode'), 1))

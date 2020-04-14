@@ -135,6 +135,9 @@ class Ibmfloat(Unsigned):
         assert self.count == 1
 
         x = super().get(handle)
+        if x is None:
+           return None
+
         s = x & 0x80000000
         c = (x & 0x7f000000) >> 24
         m = (x & 0x00ffffff)

@@ -5,7 +5,7 @@ def load(h):
 
     h.add(_.Section_length('section1Length', 3))
     h.add(_.Unsigned('gribTablesVersionNo', 1))
-    h.add(_.Codetable('centre', 1, "common/c-1.table"))
+    h.add(_.StringCodetable('centre', 1, "common/c-1.table"))
     h.alias('ls.centre', 'centre')
     h.alias('identificationOfOriginatingGeneratingCentre', 'centre')
     h.add(_.Unsigned('generatingProcessIdentifier', 1))
@@ -31,12 +31,12 @@ def load(h):
     h.add(_.Unsigned('periodOfTimeIntervals', 1))
     h.alias('P2', 'periodOfTimeIntervals')
     h.add(_.Codetable('timeRangeIndicator', 1, "grib1/5.table"))
-    h.add(_.StringTransientCodetable('stepUnits', 1, "grib2/tables/1/4.4.table"))
+    h.add(_.TransientCodetable('stepUnits', 1, "grib2/tables/1/4.4.table"))
 
     def stepType_inline_concept(h):
         def wrapped(h):
 
-            timeRangeIndicator = h.get('timeRangeIndicator')
+            timeRangeIndicator = h.get_l('timeRangeIndicator')
 
             if timeRangeIndicator == 1:
                 return 'instant'

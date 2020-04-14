@@ -123,7 +123,7 @@ def load(h):
     h.alias('geography.iScansNegatively', 'iScansNegatively')
     h.alias('geography.jScansPositively', 'jScansPositively')
     h.alias('geography.jPointsAreConsecutive', 'jPointsAreConsecutive')
-    h.add(_.Transient('iScansPositively', not (_.Get('iScansNegatively'))))
+    h.add(_.Transient('iScansPositively', _.Not(_.Get('iScansNegatively'))))
     h.add(_.Bit('scanningMode5', _.Get('scanningMode'), 3))
     h.add(_.Bit('scanningMode6', _.Get('scanningMode'), 2))
     h.add(_.Bit('scanningMode7', _.Get('scanningMode'), 1))

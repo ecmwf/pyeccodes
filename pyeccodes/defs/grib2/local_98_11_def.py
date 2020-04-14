@@ -8,7 +8,7 @@ def load(h):
     h.add(_.Unsigned('dayOfAnalysis', 1))
     h.add(_.Unsigned('hourOfAnalysis', 1))
     h.add(_.Unsigned('minuteOfAnalysis', 1))
-    h.add(_.Codetable('originatingCentreOfAnalysis', 2, "common/c-1.table"))
+    h.add(_.StringCodetable('originatingCentreOfAnalysis', 2, "common/c-1.table"))
     h.add(_.Unsigned('subcentreOfAnalysis', 2))
     h.add(_.Constant('secondsOfAnalysis', 0))
     h.add(_.G2date('dateOfAnalysis', _.Get('yearOfAnalysis'), _.Get('monthOfAnalysis'), _.Get('dayOfAnalysis')))

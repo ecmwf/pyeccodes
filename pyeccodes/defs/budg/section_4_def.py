@@ -52,7 +52,7 @@ def load(h):
             def isEps_inline_concept(h):
                 def wrapped(h):
 
-                    marsType = h.get('marsType')
+                    marsType = h.get_s('marsType')
 
                     if marsType == "pf":
                         return 1
@@ -64,7 +64,7 @@ def load(h):
             def isSens_inline_concept(h):
                 def wrapped(h):
 
-                    marsType = h.get('marsType')
+                    marsType = h.get_s('marsType')
 
                     if marsType == "sf":
                         return 1
@@ -78,7 +78,7 @@ def load(h):
             def marsStream_inline_concept(h):
                 def wrapped(h):
 
-                    marsType = h.get('marsType')
+                    marsType = h.get_s('marsType')
 
                     if marsType == "pf":
                         return 'enfo'

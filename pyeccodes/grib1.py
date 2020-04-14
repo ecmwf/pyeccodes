@@ -103,3 +103,37 @@ class Mars_param(NoSize):
 
     def get(self, handle):
         return "%s.%s" % (evaluate(self.param, handle), evaluate(self.table, handle))
+
+
+class G1step_range(NoSize):
+
+    def __init__(self, name,
+                 p1,
+                 p2,
+                 timeRangeIndicator,
+                 unitOfTimeRange,
+                 stepUnits,
+                 stepType):
+        super().__init__(name)
+        self.p1 = p1
+        self.p2 = p2
+        self.timeRangeIndicator = timeRangeIndicator
+        self.unitOfTimeRange = unitOfTimeRange
+        self.stepUnits = stepUnits
+        self.stepType = stepType
+
+    def get(self, handle):
+        p1 = evaluate(self.p1, handle)
+        p2 = evaluate(self.p2, handle)
+        timeRangeIndicator = evaluate(self.timeRangeIndicator, handle)
+        unitOfTimeRange = evaluate(self.unitOfTimeRange, handle)
+        stepUnits = evaluate(self.stepUnits, handle)
+        stepType = evaluate(self.stepType, handle)
+
+        assert unitOfTimeRange == 1
+        if stepType == 'instant':
+            # assert p1 <= p2, (stepType, p1, p2)
+            return (p1, p1)
+
+        return (p1, p2)
+

@@ -41,7 +41,7 @@ def load(h):
     def marsType_inline_concept(h):
         def wrapped(h):
 
-            typeOfProcessedData = h.get('typeOfProcessedData')
+            typeOfProcessedData = h.get_l('typeOfProcessedData')
 
             if typeOfProcessedData == 1:
                 return 'fc'
@@ -55,9 +55,9 @@ def load(h):
             if typeOfProcessedData == 0:
                 return 2
 
-            centre = h.get('centre')
-            typeOfGeneratingProcess = h.get('typeOfGeneratingProcess')
-            generatingProcessIdentifier = h.get('generatingProcessIdentifier')
+            centre = h.get_l('centre')
+            typeOfGeneratingProcess = h.get_l('typeOfGeneratingProcess')
+            generatingProcessIdentifier = h.get_l('generatingProcessIdentifier')
 
             if centre == 82 and typeOfGeneratingProcess == 0 and generatingProcessIdentifier == 50:
                 return 'oi'
@@ -65,7 +65,7 @@ def load(h):
             if centre == 82 and typeOfGeneratingProcess == 0 and generatingProcessIdentifier == 50:
                 return 4
 
-            dummyc = h.get('dummyc')
+            dummyc = h.get_l('dummyc')
 
             if dummyc == 0:
                 return 'default'
@@ -77,7 +77,7 @@ def load(h):
     def marsStream_inline_concept(h):
         def wrapped(h):
 
-            productDefinitionTemplateNumber = h.get('productDefinitionTemplateNumber')
+            productDefinitionTemplateNumber = h.get_l('productDefinitionTemplateNumber')
 
             if productDefinitionTemplateNumber == 8:
                 return 'oper'
@@ -91,7 +91,7 @@ def load(h):
             if productDefinitionTemplateNumber == 1:
                 return 'enda'
 
-            dummyc = h.get('dummyc')
+            dummyc = h.get_l('dummyc')
 
             if dummyc == 0:
                 return 'default'

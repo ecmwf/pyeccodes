@@ -25,6 +25,6 @@ def load(h):
         h.add(_.Signed('integerValues', 4, _.Get('numberOfIntegers')))
 
     if h.get_l('numberOfCharacters'):
-        h.add(_.Unsigned('charValues', 1, _.Get('numberOfCharacters')))
+        h.add(_.StringUnsigned('charValues', 1, _.Get('numberOfCharacters')))
 
     h.add(_.Section_padding('padding'))

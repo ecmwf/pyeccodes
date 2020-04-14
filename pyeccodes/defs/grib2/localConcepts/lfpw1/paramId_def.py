@@ -5,9 +5,9 @@ def load(h):
 
     def wrapped(h):
 
-        discipline = h.get('discipline')
-        parameterCategory = h.get('parameterCategory')
-        parameterNumber = h.get('parameterNumber')
+        discipline = h.get_l('discipline')
+        parameterCategory = h.get_l('parameterCategory')
+        parameterNumber = h.get_l('parameterNumber')
 
         if discipline == 0 and parameterCategory == 1 and parameterNumber == 10:
             return 85001156

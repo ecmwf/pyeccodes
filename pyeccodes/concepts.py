@@ -7,8 +7,22 @@
 # virtue of its status as an intergovernmental organisation nor does it submit to any jurisdiction.
 
 from .base import NoSize
-from .templates import Concepts, empty_concept
+from .templates import Concepts
 import os
+# from .expression import evaluate
+
+
+class VisitConcept:
+
+    def __init__(self, concepts, dont_fail):
+        self.concepts = concepts
+
+    def __call__(self, handle):
+        for c in self.concepts:
+            result = c(handle)
+            if result is not None:
+                return result
+        return None
 
 
 class Concept(NoSize):
@@ -29,18 +43,26 @@ class Concept(NoSize):
         self.local = local
         self.dont_fail = dont_fail
 
-    def path(self, handle):
-        if (self.master or self.local) and self.basename:
-            path = self.local if self.local else self.master
-            return os.path.join(handle.get(path), self.basename)
+    def paths(self, handle):
+        basename = self.basename
+        master = handle.get(self.master)
+        local = handle.get(self.local)
+
+        if (master or local) and basename:
+            paths = []
+            if local:
+                paths += [os.path.join(local, basename)]
+
+            if master:
+                paths += [os.path.join(master, basename)]
+            return tuple(paths)
+
+        return (basename,)
 
     def concepts(self, handle):
         if self._concepts is None:
-            path = self.path(handle)
-            if path:
-                self._concepts = Concepts(path, self.dont_fail).load(handle)
-            else:
-                return empty_concept
+            paths = self.paths(handle)
+            self._concepts = VisitConcept([Concepts(path, True).load(handle) for path in paths], self.dont_fail)
         return self._concepts
 
     def get(self, handle):
@@ -48,3 +70,6 @@ class Concept(NoSize):
         if value is None:
             value = handle.accessor(self.default).get(handle)
         return value
+
+    def extra_info(self):
+        return self.paths(self.handle)

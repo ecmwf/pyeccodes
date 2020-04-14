@@ -26,5 +26,5 @@ def load(h):
     h.add(_.Codetable('indicatorOfUnitOfTimeRange', 1, "4.4.table", _.Get('masterDir'), _.Get('localDir')))
     h.alias('defaultStepUnits', 'one')
     _.Template('grib2/localConcepts/[centre:s]/default_step_units.def', True).load(h)
-    h.add(_.StringTransientCodetable('stepUnits', 1, "stepUnits.table"))
+    h.add(_.TransientCodetable('stepUnits', 1, "stepUnits.table"))
     h.add(_.Signed('forecastTime', 4))

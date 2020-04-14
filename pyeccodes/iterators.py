@@ -84,14 +84,19 @@ class LatlonIterator(Iterator):
         return next(self.gen)
 
     def distinct_latitudes(self):
+        if self.Nj is None:
+            return None
         result = np.arange(self.latitudeFirstInDegrees, self.latitudeFirstInDegrees - self.Nj * self.DjInDegrees, -self.DjInDegrees)
         assert len(result) == self.Nj
         return result
 
     def distinct_longitudes(self):
+        if self.Ni is None:
+            return None
         result = np.arange(self.longitudeFirstInDegrees, self.longitudeFirstInDegrees + self.Ni * self.DiInDegrees, self.DiInDegrees)
         assert len(result) == self.Ni
         return result
+
 
 ITERATORS = {
     'latlon': LatlonIterator,

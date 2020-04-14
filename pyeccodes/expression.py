@@ -79,6 +79,18 @@ class Binop(Expression):
         return self.op(left, right)
 
 
+class Unop(Expression):
+
+    def __init__(self, expr):
+        self.expr = expr
+
+    def evaluate(self, handle, kind=None):
+        expr = evaluate(self.expr, handle, kind)
+        if expr is None:
+            return None
+        return self.op(expr)
+
+
 class SubExp(Binop):
 
     def op(self, a, b):
@@ -100,7 +112,7 @@ class MulExp(Binop):
 class DivExp(Binop):
 
     def op(self, a, b):
-        return a / b
+        return a // b
 
 
 class ModExp(Binop):
@@ -119,6 +131,24 @@ class GeExp(Binop):
 
     def op(self, a, b):
         return 1 if a >= b else 0
+
+
+class And(Binop):
+
+    def op(self, a, b):
+        return (a and b)
+
+
+class Or(Binop):
+
+    def op(self, a, b):
+        return (a or b)
+
+
+class Not(Unop):
+
+    def op(self, a):
+        return not a
 
 
 E['%'] = ModExp

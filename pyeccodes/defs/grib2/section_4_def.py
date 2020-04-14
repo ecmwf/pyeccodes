@@ -58,8 +58,8 @@ def load(h):
         def deletePV_inline_concept(h):
             def wrapped(h):
 
-                PVPresent = h.get('PVPresent')
-                NV = h.get('NV')
+                PVPresent = h.get_l('PVPresent')
+                NV = h.get_l('NV')
 
                 if PVPresent == 0 and NV == 0:
                     return 1

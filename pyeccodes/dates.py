@@ -128,3 +128,34 @@ class Validity_time(ValidDateTime):
 
     def get(self, handle):
         return super().get(handle)[1]
+
+
+class G2date(NoSize):
+
+    def __init__(self, name, year, month, day):
+        super().__init__(name)
+        self.year = year
+        self.month = month
+        self.day = day
+
+    def get(self, handle):
+        year = evaluate(self.year, handle)
+        month = evaluate(self.month, handle)
+        day = evaluate(self.day, handle)
+        return year * 10000 + month * 100 + day
+
+
+class Time(NoSize):
+
+    def __init__(self, name, hour, minute, second):
+        super().__init__(name)
+        self.hour = hour
+        self.minute = minute
+        self.second = second
+
+    def get(self, handle):
+        hour = evaluate(self.hour, handle)
+        minute = evaluate(self.minute, handle)
+        second = evaluate(self.second, handle)
+        assert second == 0
+        return hour * 100 + minute

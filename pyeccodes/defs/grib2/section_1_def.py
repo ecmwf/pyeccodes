@@ -7,7 +7,7 @@ def load(h):
     h.add(_.Section_length('section1Length', 4))
     h.add(_.Section_pointer('section1Pointer', _.Get('offsetSection1'), _.Get('section1Length'), 1))
     h.add(_.Unsigned('numberOfSection', 1))
-    h.add(_.Codetable('centre', 2, "common/c-11.table"))
+    h.add(_.StringCodetable('centre', 2, "common/c-11.table"))
     h.alias('identificationOfOriginatingGeneratingCentre', 'centre')
     h.add(_.Codetable_title('centreDescription', _.Get('centre')))
     h.alias('parameter.centre', 'centre')
@@ -49,7 +49,7 @@ def load(h):
     h.add(_.Time('dataTime', _.Get('hour'), _.Get('minute'), _.Get('second')))
     h.alias('mars.time', 'dataTime')
     h.add(_.Codetable('productionStatusOfProcessedData', 1, "1.3.table", _.Get('masterDir'), _.Get('localDir')))
-    h.add(_.Codetable('typeOfProcessedData', 1, "1.4.table", _.Get('masterDir'), _.Get('localDir')))
+    h.add(_.StringCodetable('typeOfProcessedData', 1, "1.4.table", _.Get('masterDir'), _.Get('localDir')))
     h.alias('ls.dataType', 'typeOfProcessedData')
     h.add(_.Md5('md5Section1', _.Get('offsetSection1'), _.Get('section1Length')))
     h.add(_.Select_step_template('selectStepTemplateInterval', _.Get('productDefinitionTemplateNumber'), 0))
@@ -59,13 +59,13 @@ def load(h):
     def stepType_inline_concept(h):
         def wrapped(h):
 
-            selectStepTemplateInstant = h.get('selectStepTemplateInstant')
-            stepTypeInternal = h.get('stepTypeInternal')
+            selectStepTemplateInstant = h.get_l('selectStepTemplateInstant')
+            stepTypeInternal = h.get_s('stepTypeInternal')
 
             if selectStepTemplateInstant == 1 and stepTypeInternal == "instant":
                 return 'instant'
 
-            selectStepTemplateInterval = h.get('selectStepTemplateInterval')
+            selectStepTemplateInterval = h.get_l('selectStepTemplateInterval')
 
             if selectStepTemplateInterval == 1 and stepTypeInternal == "avg":
                 return 'avg'
@@ -120,13 +120,13 @@ def load(h):
 
     if (((h.get_l('section1Length') > 21) or (h.get_l('setCalendarId') > 0)) and (h.get_l('deleteCalendarId') == 0)):
         h.alias('calendarIdPresent', 'present')
-        h.add(_.Codetable('calendarIdentificationTemplateNumber', 2, "1.5.table", _.Get('masterDir'), _.Get('localDir')))
+        h.add(_.StringCodetable('calendarIdentificationTemplateNumber', 2, "1.5.table", _.Get('masterDir'), _.Get('localDir')))
         _.Template('grib2/template.1.[calendarIdentificationTemplateNumber:l].def').load(h)
 
     def is_uerra_inline_concept(h):
         def wrapped(h):
 
-            productionStatusOfProcessedData = h.get('productionStatusOfProcessedData')
+            productionStatusOfProcessedData = h.get_l('productionStatusOfProcessedData')
 
             if productionStatusOfProcessedData == 10:
                 return 1
@@ -140,7 +140,7 @@ def load(h):
             if productionStatusOfProcessedData == 8:
                 return 1
 
-            dummy = h.get('dummy')
+            dummy = h.get_l('dummy')
 
             if dummy == 1:
                 return 0

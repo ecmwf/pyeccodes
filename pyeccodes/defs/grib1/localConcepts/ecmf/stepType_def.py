@@ -5,74 +5,74 @@ def load(h):
 
     def wrapped(h):
 
-        timeRangeIndicator = h.get('timeRangeIndicator')
+        timeRangeIndicator = h.get_l('timeRangeIndicator')
 
-        if timeRangeIndicator == 0:
-            return 'instant'
+        if timeRangeIndicator == 133:
+            return 'avgid'
 
-        if timeRangeIndicator == 10:
-            return 'instant'
+        if timeRangeIndicator == 130:
+            return 'avgad'
 
-        if timeRangeIndicator == 1:
-            return 'instant'
+        if timeRangeIndicator == 128:
+            return 'avgas'
 
-        if timeRangeIndicator == 14:
-            return 'instant'
+        if timeRangeIndicator == 124:
+            return 'avgia'
 
-        if timeRangeIndicator == 3:
-            return 'avg'
+        if timeRangeIndicator == 123:
+            return 'avgua'
 
-        if timeRangeIndicator == 113:
-            return 'avgd'
+        if timeRangeIndicator == 122:
+            return 'cov'
 
-        if timeRangeIndicator == 113:
-            return 'avgfc'
+        if timeRangeIndicator == 121:
+            return 'sd'
 
-        if timeRangeIndicator == 4:
-            return 'accum'
+        if timeRangeIndicator == 120:
+            return 'rms'
 
-        if timeRangeIndicator == 2:
-            return 'accum'
+        if timeRangeIndicator == 5:
+            return 'diff'
 
-        centre = h.get('centre')
+        if timeRangeIndicator == 118:
+            return 'max'
+
+        centre = h.get_l('centre')
 
         if timeRangeIndicator == 2 and centre == 98:
-            return 'min'
+            return 'max'
 
         if timeRangeIndicator == 119:
             return 'min'
 
         if timeRangeIndicator == 2 and centre == 98:
-            return 'max'
+            return 'min'
 
-        if timeRangeIndicator == 118:
-            return 'max'
+        if timeRangeIndicator == 2:
+            return 'accum'
 
-        if timeRangeIndicator == 5:
-            return 'diff'
+        if timeRangeIndicator == 4:
+            return 'accum'
 
-        if timeRangeIndicator == 120:
-            return 'rms'
+        if timeRangeIndicator == 113:
+            return 'avgfc'
 
-        if timeRangeIndicator == 121:
-            return 'sd'
+        if timeRangeIndicator == 113:
+            return 'avgd'
 
-        if timeRangeIndicator == 122:
-            return 'cov'
+        if timeRangeIndicator == 3:
+            return 'avg'
 
-        if timeRangeIndicator == 123:
-            return 'avgua'
+        if timeRangeIndicator == 14:
+            return 'instant'
 
-        if timeRangeIndicator == 124:
-            return 'avgia'
+        if timeRangeIndicator == 1:
+            return 'instant'
 
-        if timeRangeIndicator == 128:
-            return 'avgas'
+        if timeRangeIndicator == 10:
+            return 'instant'
 
-        if timeRangeIndicator == 130:
-            return 'avgad'
-
-        if timeRangeIndicator == 133:
-            return 'avgid'
+        if timeRangeIndicator == 0:
+            return 'instant'
 
     return wrapped

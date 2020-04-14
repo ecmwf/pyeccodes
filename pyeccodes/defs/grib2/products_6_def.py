@@ -27,7 +27,7 @@ def load(h):
     def marsType_inline_concept(h):
         def wrapped(h):
 
-            typeOfProcessedData = h.get('typeOfProcessedData')
+            typeOfProcessedData = h.get_l('typeOfProcessedData')
 
             if typeOfProcessedData == 2:
                 return 'fc'
@@ -47,7 +47,7 @@ def load(h):
             if typeOfProcessedData == 4:
                 return 11
 
-            dummyc = h.get('dummyc')
+            dummyc = h.get_l('dummyc')
 
             if dummyc == 0:
                 return 'default'
@@ -59,7 +59,7 @@ def load(h):
     def marsStream_inline_concept(h):
         def wrapped(h):
 
-            typeOfProcessedData = h.get('typeOfProcessedData')
+            typeOfProcessedData = h.get_l('typeOfProcessedData')
 
             if typeOfProcessedData == 0:
                 return 'oper'
@@ -76,7 +76,7 @@ def load(h):
             if typeOfProcessedData == 8:
                 return 'enfo'
 
-            dummyc = h.get('dummyc')
+            dummyc = h.get_l('dummyc')
 
             if dummyc == 0:
                 return 'default'
@@ -101,11 +101,11 @@ def load(h):
     def is_ocean2d_param_inline_concept(h):
         def wrapped(h):
 
-            discipline = h.get('discipline')
-            typeOfFirstFixedSurface = h.get('typeOfFirstFixedSurface')
-            scaleFactorOfFirstFixedSurface = h.get('scaleFactorOfFirstFixedSurface')
-            scaledValueOfFirstFixedSurface = h.get('scaledValueOfFirstFixedSurface')
-            typeOfSecondFixedSurface = h.get('typeOfSecondFixedSurface')
+            discipline = h.get_l('discipline')
+            typeOfFirstFixedSurface = h.get_l('typeOfFirstFixedSurface')
+            scaleFactorOfFirstFixedSurface = h.get_l('scaleFactorOfFirstFixedSurface')
+            scaledValueOfFirstFixedSurface = h.get_l('scaledValueOfFirstFixedSurface')
+            typeOfSecondFixedSurface = h.get_l('typeOfSecondFixedSurface')
 
             if discipline == 10 and typeOfFirstFixedSurface == 160 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfSecondFixedSurface == 255:
                 return 1
@@ -116,13 +116,13 @@ def load(h):
             if discipline == 10 and typeOfFirstFixedSurface == 169 and scaleFactorOfFirstFixedSurface == 2 and scaledValueOfFirstFixedSurface == 1 and typeOfSecondFixedSurface == 255:
                 return 1
 
-            scaleFactorOfSecondFixedSurface = h.get('scaleFactorOfSecondFixedSurface')
-            scaledValueOfSecondFixedSurface = h.get('scaledValueOfSecondFixedSurface')
+            scaleFactorOfSecondFixedSurface = h.get_l('scaleFactorOfSecondFixedSurface')
+            scaledValueOfSecondFixedSurface = h.get_l('scaledValueOfSecondFixedSurface')
 
             if discipline == 10 and typeOfFirstFixedSurface == 160 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfSecondFixedSurface == 160 and scaleFactorOfSecondFixedSurface == 0 and scaledValueOfSecondFixedSurface == 300:
                 return 1
 
-            dummy = h.get('dummy')
+            dummy = h.get_l('dummy')
 
             if dummy == 1:
                 return 0
@@ -134,22 +134,22 @@ def load(h):
     def is_ocean3d_param_inline_concept(h):
         def wrapped(h):
 
-            discipline = h.get('discipline')
-            typeOfFirstFixedSurface = h.get('typeOfFirstFixedSurface')
-            typeOfSecondFixedSurface = h.get('typeOfSecondFixedSurface')
+            discipline = h.get_l('discipline')
+            typeOfFirstFixedSurface = h.get_l('typeOfFirstFixedSurface')
+            typeOfSecondFixedSurface = h.get_l('typeOfSecondFixedSurface')
 
             if discipline == 10 and typeOfFirstFixedSurface == 160 and typeOfSecondFixedSurface == 160:
                 return 1
 
-            scaleFactorOfFirstFixedSurface = h.get('scaleFactorOfFirstFixedSurface')
-            scaledValueOfFirstFixedSurface = h.get('scaledValueOfFirstFixedSurface')
-            scaleFactorOfSecondFixedSurface = h.get('scaleFactorOfSecondFixedSurface')
-            scaledValueOfSecondFixedSurface = h.get('scaledValueOfSecondFixedSurface')
+            scaleFactorOfFirstFixedSurface = h.get_l('scaleFactorOfFirstFixedSurface')
+            scaledValueOfFirstFixedSurface = h.get_l('scaledValueOfFirstFixedSurface')
+            scaleFactorOfSecondFixedSurface = h.get_l('scaleFactorOfSecondFixedSurface')
+            scaledValueOfSecondFixedSurface = h.get_l('scaledValueOfSecondFixedSurface')
 
             if discipline == 10 and typeOfFirstFixedSurface == 160 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfSecondFixedSurface == 160 and scaleFactorOfSecondFixedSurface == 0 and scaledValueOfSecondFixedSurface == 300:
                 return 0
 
-            dummy = h.get('dummy')
+            dummy = h.get_l('dummy')
 
             if dummy == 1:
                 return 0

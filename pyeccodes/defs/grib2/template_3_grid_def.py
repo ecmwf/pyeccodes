@@ -36,8 +36,8 @@ def load(h):
     def ijDirectionIncrementGiven_inline_concept(h):
         def wrapped(h):
 
-            iDirectionIncrementGiven = h.get('iDirectionIncrementGiven')
-            jDirectionIncrementGiven = h.get('jDirectionIncrementGiven')
+            iDirectionIncrementGiven = h.get_l('iDirectionIncrementGiven')
+            jDirectionIncrementGiven = h.get_l('jDirectionIncrementGiven')
 
             if iDirectionIncrementGiven == 1 and jDirectionIncrementGiven == 1:
                 return 1

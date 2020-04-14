@@ -34,6 +34,9 @@ class Accessor:
     def get_d(self, handle):
         return float(self.get(handle))
 
+    def extra_info(self):
+        return ""
+
     def dump(self, handle):
         try:
             v = self.get(handle)
@@ -64,4 +67,5 @@ class ListAccessor(NoSize):
         self._list.append(accessor)
 
     def get(self, handle):
-        return tuple(a.get(handle) for a in self._list)
+        result = tuple(a.get(handle) for a in self._list)
+        return result[0] if len(result) == 1 else result

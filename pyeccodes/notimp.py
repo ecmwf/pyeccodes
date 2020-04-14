@@ -9,12 +9,27 @@
 from .base import Accessor
 
 
+class NoResult:
+
+    def __init__(self, title):
+        self.title = title
+
+    def __repr__(self):
+        return self.title
+
+    def __sub__(self, other):
+        return "(%s-%s)" % (self, other)
+
+
 class NotImp(Accessor):
 
     length = 0
 
     def __init__(self, name, *ignore):
         super().__init__(name)
+
+    def get(self, handle):
+        return NoResult("%s(<not-implemented>)" % (self.__class__.__name__.split('.')[-1]))
 
 
 class Bits(NotImp):
@@ -29,19 +44,11 @@ class Change_scanning_direction(NotImp):
     pass
 
 
-class Count_missing(NotImp):
-    pass
-
-
 class Decimal_precision(NotImp):
     pass
 
 
 class Dirty(NotImp):
-    pass
-
-
-class G1step_range(NotImp):
     pass
 
 
@@ -54,10 +61,6 @@ class Latlonvalues(NotImp):
 
 
 class Nearest(NotImp):
-    pass
-
-
-class Number_of_values(NotImp):
     pass
 
 
@@ -93,39 +96,8 @@ class Local_definition(NotImp):
     pass
 
 
-class G2_eps(NotImp):
-    pass
-
-
-class Step_in_units(NotImp):
-    pass
-
-
-class G2end_step(NotImp):
-    pass
-
 
 class G2step_range(NotImp):
-    pass
-
-
-class G2level(NotImp):
-    pass
-
-
-class Global_gaussian(NotImp):
-    pass
-
-
-class Number_of_points_gaussian(NotImp):
-    pass
-
-
-class Octahedral_gaussian(NotImp):
-    pass
-
-
-class Gaussian_grid_name(NotImp):
     pass
 
 

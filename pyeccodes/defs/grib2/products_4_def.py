@@ -34,7 +34,7 @@ def load(h):
     def marsType_inline_concept(h):
         def wrapped(h):
 
-            typeOfProcessedData = h.get('typeOfProcessedData')
+            typeOfProcessedData = h.get_l('typeOfProcessedData')
 
             if typeOfProcessedData == 2:
                 return 'fc'
@@ -54,7 +54,7 @@ def load(h):
             if typeOfProcessedData == 4:
                 return 11
 
-            dummyc = h.get('dummyc')
+            dummyc = h.get_l('dummyc')
 
             if dummyc == 0:
                 return 'default'
@@ -66,7 +66,7 @@ def load(h):
     def marsStream_inline_concept(h):
         def wrapped(h):
 
-            typeOfProcessedData = h.get('typeOfProcessedData')
+            typeOfProcessedData = h.get_l('typeOfProcessedData')
 
             if typeOfProcessedData == 0:
                 return 'oper'
@@ -83,7 +83,7 @@ def load(h):
             if typeOfProcessedData == 8:
                 return 'enfo'
 
-            dummyc = h.get('dummyc')
+            dummyc = h.get_l('dummyc')
 
             if dummyc == 0:
                 return 'default'

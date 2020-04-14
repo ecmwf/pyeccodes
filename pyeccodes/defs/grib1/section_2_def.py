@@ -38,7 +38,7 @@ def load(h):
         h.alias('vertical.pv', 'pv')
 
     h.add(_.Position('offsetBeforePL'))
-    h.add(_.Transient('PLPresent', ((_.Get('section2Length') > (_.Get('offsetBeforePL') - _.Get('offsetSection2'))) and (_.Get('section2Length') >= (((_.Get('Nj') * 2) + _.Get('offsetBeforePL')) - _.Get('offsetSection2'))))))
+    h.add(_.Transient('PLPresent', _.And((_.Get('section2Length') > (_.Get('offsetBeforePL') - _.Get('offsetSection2'))), (_.Get('section2Length') >= (((_.Get('Nj') * 2) + _.Get('offsetBeforePL')) - _.Get('offsetSection2'))))))
 
     if h.get_l('PLPresent'):
         h.add(_.Constant('numberOfOctectsForNumberOfPoints', 2))
@@ -56,8 +56,8 @@ def load(h):
     def deletePV_inline_concept(h):
         def wrapped(h):
 
-            PVPresent = h.get('PVPresent')
-            NV = h.get('NV')
+            PVPresent = h.get_l('PVPresent')
+            NV = h.get_l('NV')
 
             if PVPresent == 0 and NV == 0:
                 return 1

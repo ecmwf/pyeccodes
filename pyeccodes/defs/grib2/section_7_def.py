@@ -20,10 +20,10 @@ def load(h):
     def productType_inline_concept(h):
         def wrapped(h):
 
-            grib2LocalSectionPresent = h.get('grib2LocalSectionPresent')
-            centre = h.get('centre')
-            grib2LocalSectionNumber = h.get('grib2LocalSectionNumber')
-            productDefinitionTemplateNumber = h.get('productDefinitionTemplateNumber')
+            grib2LocalSectionPresent = h.get_l('grib2LocalSectionPresent')
+            centre = h.get_l('centre')
+            grib2LocalSectionNumber = h.get_l('grib2LocalSectionNumber')
+            productDefinitionTemplateNumber = h.get_l('productDefinitionTemplateNumber')
 
             if grib2LocalSectionPresent == 1 and centre == 98 and grib2LocalSectionNumber == 500 and productDefinitionTemplateNumber == 2000:
                 return 'obstat'

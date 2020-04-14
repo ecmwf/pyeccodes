@@ -39,14 +39,14 @@ def load(h):
     def packingType_inline_concept(h):
         def wrapped(h):
 
-            sphericalHarmonics = h.get('sphericalHarmonics')
-            complexPacking = h.get('complexPacking')
-            additionalFlagPresent = h.get('additionalFlagPresent')
+            sphericalHarmonics = h.get_l('sphericalHarmonics')
+            complexPacking = h.get_l('complexPacking')
+            additionalFlagPresent = h.get_l('additionalFlagPresent')
 
             if sphericalHarmonics == 0 and complexPacking == 0 and additionalFlagPresent == 0:
                 return 'grid_simple'
 
-            integerPointValues = h.get('integerPointValues')
+            integerPointValues = h.get_l('integerPointValues')
 
             if sphericalHarmonics == 0 and complexPacking == 0 and integerPointValues == 1 and additionalFlagPresent == 1:
                 return 'grid_ieee'
@@ -54,12 +54,12 @@ def load(h):
             if sphericalHarmonics == 1 and complexPacking == 1 and additionalFlagPresent == 0:
                 return 'spectral_complex'
 
-            representationMode = h.get('representationMode')
+            representationMode = h.get_l('representationMode')
 
             if sphericalHarmonics == 1 and complexPacking == 0 and additionalFlagPresent == 0 and representationMode == 1:
                 return 'spectral_simple'
 
-            hideThis = h.get('hideThis')
+            hideThis = h.get_l('hideThis')
 
             if sphericalHarmonics == 1 and complexPacking == 1 and additionalFlagPresent == 0 and hideThis == 1:
                 return 'spectral_ieee'
@@ -67,10 +67,10 @@ def load(h):
             if sphericalHarmonics == 0 and complexPacking == 0 and additionalFlagPresent == 1:
                 return 'grid_simple_matrix'
 
-            secondOrderOfDifferentWidth = h.get('secondOrderOfDifferentWidth')
-            matrixOfValues = h.get('matrixOfValues')
-            secondaryBitmapPresent = h.get('secondaryBitmapPresent')
-            generalExtended2ordr = h.get('generalExtended2ordr')
+            secondOrderOfDifferentWidth = h.get_l('secondOrderOfDifferentWidth')
+            matrixOfValues = h.get_l('matrixOfValues')
+            secondaryBitmapPresent = h.get_l('secondaryBitmapPresent')
+            generalExtended2ordr = h.get_l('generalExtended2ordr')
 
             if sphericalHarmonics == 0 and complexPacking == 1 and secondOrderOfDifferentWidth == 1 and matrixOfValues == 0 and secondaryBitmapPresent == 0 and generalExtended2ordr == 0:
                 return 'grid_second_order_row_by_row'
@@ -81,13 +81,13 @@ def load(h):
             if sphericalHarmonics == 0 and complexPacking == 1 and secondOrderOfDifferentWidth == 1 and matrixOfValues == 0 and secondaryBitmapPresent == 1 and generalExtended2ordr == 0:
                 return 'grid_second_order_general_grib1'
 
-            plusOneinOrdersOfSPD = h.get('plusOneinOrdersOfSPD')
-            twoOrdersOfSPD = h.get('twoOrdersOfSPD')
+            plusOneinOrdersOfSPD = h.get_l('plusOneinOrdersOfSPD')
+            twoOrdersOfSPD = h.get_l('twoOrdersOfSPD')
 
             if sphericalHarmonics == 0 and complexPacking == 1 and secondOrderOfDifferentWidth == 1 and matrixOfValues == 0 and secondaryBitmapPresent == 0 and generalExtended2ordr == 1 and plusOneinOrdersOfSPD == 0 and twoOrdersOfSPD == 0:
                 return 'grid_second_order_no_SPD'
 
-            boustrophedonic = h.get('boustrophedonic')
+            boustrophedonic = h.get_l('boustrophedonic')
 
             if sphericalHarmonics == 0 and complexPacking == 1 and secondOrderOfDifferentWidth == 1 and matrixOfValues == 0 and secondaryBitmapPresent == 0 and generalExtended2ordr == 1 and plusOneinOrdersOfSPD == 0 and twoOrdersOfSPD == 1 and boustrophedonic == 1:
                 return 'grid_second_order'
@@ -162,14 +162,14 @@ def load(h):
     def gridType_inline_concept(h):
         def wrapped(h):
 
-            dataRepresentationType = h.get('dataRepresentationType')
-            sphericalHarmonics = h.get('sphericalHarmonics')
-            PLPresent = h.get('PLPresent')
+            dataRepresentationType = h.get_l('dataRepresentationType')
+            sphericalHarmonics = h.get_l('sphericalHarmonics')
+            PLPresent = h.get_l('PLPresent')
 
             if dataRepresentationType == 0 and sphericalHarmonics == 0 and PLPresent == 0:
                 return 'regular_ll'
 
-            Ni = h.get('Ni')
+            Ni = h.get_l('Ni')
 
             if dataRepresentationType == 0 and sphericalHarmonics == 0 and PLPresent == 1 and Ni == h._missing():
                 return 'reduced_ll'
@@ -216,9 +216,9 @@ def load(h):
             if dataRepresentationType == 34 and sphericalHarmonics == 0 and PLPresent == 0:
                 return 'stretched_rotated_gg'
 
-            numberOfPointsAlongAParallel = h.get('numberOfPointsAlongAParallel')
-            iDirectionIncrement = h.get('iDirectionIncrement')
-            ijDirectionIncrementGiven = h.get('ijDirectionIncrementGiven')
+            numberOfPointsAlongAParallel = h.get_l('numberOfPointsAlongAParallel')
+            iDirectionIncrement = h.get_l('iDirectionIncrement')
+            ijDirectionIncrementGiven = h.get_l('ijDirectionIncrementGiven')
 
             if dataRepresentationType == 4 and sphericalHarmonics == 0 and PLPresent == 1 and numberOfPointsAlongAParallel == h._missing() and iDirectionIncrement == h._missing() and ijDirectionIncrementGiven == 0:
                 return 'reduced_gg'

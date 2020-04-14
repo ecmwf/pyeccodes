@@ -74,3 +74,7 @@ class Concepts(Module):
 
     def failed_to_load(self, handle):
         return empty_concept
+
+
+class Values(Module):
+    pass

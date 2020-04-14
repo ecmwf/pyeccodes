@@ -16,13 +16,13 @@ def load(h):
     def packingType_inline_concept(h):
         def wrapped(h):
 
-            dataRepresentationTemplateNumber = h.get('dataRepresentationTemplateNumber')
+            dataRepresentationTemplateNumber = h.get_l('dataRepresentationTemplateNumber')
 
             if dataRepresentationTemplateNumber == 0:
                 return 'grid_simple'
 
-            spectralType = h.get('spectralType')
-            spectralMode = h.get('spectralMode')
+            spectralType = h.get_l('spectralType')
+            spectralMode = h.get_l('spectralMode')
 
             if dataRepresentationTemplateNumber == 51 and spectralType == 1 and spectralMode == 1:
                 return 'spectral_complex'
@@ -78,7 +78,7 @@ def load(h):
             if dataRepresentationTemplateNumber == 50001:
                 return 'grid_second_order_general_grib1'
 
-            orderOfSPD = h.get('orderOfSPD')
+            orderOfSPD = h.get_l('orderOfSPD')
 
             if dataRepresentationTemplateNumber == 50001 and orderOfSPD == 0:
                 return 'grid_second_order_no_SPD'

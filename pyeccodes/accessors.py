@@ -15,12 +15,15 @@ from .notimp import *
 from .padding import *
 from .data import *
 from .grib1 import *
+from .grib2 import *
 from .utils import *
 from .packing import *
 from .tables import *
 from .templates import *
 from .concepts import *
 from .dates import *
+from .bitmap import *
+from .gaussian import *
 
 from .expression import evaluate
 from .base import NoSize
@@ -79,7 +82,6 @@ class Section_length(Unsigned):
     pass
 
 
-
 class Ksec1expver(Ascii):
 
     def get(self, handle):
@@ -87,7 +89,9 @@ class Ksec1expver(Ascii):
 
 
 class Label(NoSize):
-    pass
+
+    def get(self, handle):
+        return self.name
 
 
 ##########################################################
@@ -143,37 +147,6 @@ class Count_total(NoSize):
         return handle.reader.count
 
 
-class G2date(NoSize):
-
-    def __init__(self, name, year, month, day):
-        super().__init__(name)
-        self.year = year
-        self.month = month
-        self.day = day
-
-    def get(self, handle):
-        year = evaluate(self.year, handle)
-        month = evaluate(self.month, handle)
-        day = evaluate(self.day, handle)
-        return year * 10000 + month * 100 + day
-
-
-class Time(NoSize):
-
-    def __init__(self, name, hour, minute, second):
-        super().__init__(name)
-        self.hour = hour
-        self.minute = minute
-        self.second = second
-
-    def get(self, handle):
-        hour = evaluate(self.hour, handle)
-        minute = evaluate(self.minute, handle)
-        second = evaluate(self.second, handle)
-        assert second == 0
-        return hour * 100 + minute
-
-
 class Latlon_increment(NoSize):
 
     def __init__(self, name,
@@ -197,6 +170,9 @@ class Latlon_increment(NoSize):
         directionIncrementGiven = evaluate(self.directionIncrementGiven, handle)
         # scansPositively = evaluate(self.scansPositively, handle)
         directionIncrement = evaluate(self.directionIncrement, handle)
+        if directionIncrement is None:
+            return directionIncrement
+
         # first = evaluate(self.first, handle)
         # last = evaluate(self.last, handle)
         # numberOfPoints = evaluate(self.numberOfPoints, handle)
@@ -222,9 +198,14 @@ class Number_of_coded_values(NoSize):
         self.offsetAfterData = offsetAfterData
         self.offsetBeforeData = offsetBeforeData
         self.unusedBits = unusedBits
+        self.numberOfValues = numberOfValues
 
     def get(self, handle):
         bitsPerValue = evaluate(self.bitsPerValue, handle)
+
+        if bitsPerValue == 0:
+            return evaluate(self.numberOfValues, handle)
+
         offsetBeforeData = evaluate(self.offsetBeforeData, handle)
         offsetAfterData = evaluate(self.offsetAfterData, handle)
         unusedBits = evaluate(self.unusedBits, handle)
@@ -232,73 +213,28 @@ class Number_of_coded_values(NoSize):
         return ((offsetAfterData - offsetBeforeData) * 8 - unusedBits) // bitsPerValue
 
 
-class GXbitmap(Accessor):
+class Number_of_values(NoSize):
 
-    def __init__(self, name,
-                 tableReference,
-                 missingValue,
-                 offsetSection,
-                 sectionLength,
-                 numberOfUnusedBitsAtEndOfSection):
+    def __init__(self,
+                 name,
+                 values,
+                 bitsPerValue,
+                 numberOfDataPoints,
+                 bitmapPresent,
+                 bitmap,
+                 numberOfCodedValues):
         super().__init__(name)
-        self.sectionLength = sectionLength
-        self.offsetSection = offsetSection
-        self.numberOfUnusedBitsAtEndOfSection = numberOfUnusedBitsAtEndOfSection
-
-    @property
-    def length(self):
-        sectionLength = evaluate(self.sectionLength, self.handle)
-        offsetSection = evaluate(self.offsetSection, self.handle)
-        return sectionLength - (self.offset - offsetSection)
-
-    def get(self, handle):
-        numberOfUnusedBitsAtEndOfSection = evaluate(self.numberOfUnusedBitsAtEndOfSection, self.handle)
-        data = handle._buffer[self.offset:]
-        values = np.frombuffer(data, dtype=np.uint8, count=self.length)
-        values = np.unpackbits(values)
-        if numberOfUnusedBitsAtEndOfSection:
-            values = np.resize(values, self.length * 8 - numberOfUnusedBitsAtEndOfSection)
-        return values
-
-
-class G1bitmap(GXbitmap):
-    pass
-
-
-class G2bitmap(GXbitmap):
-    pass
-
-
-class Data_apply_bitmap(NoSize):
-
-    def __init__(self, name, codedValues, bitmap, missingValue, binaryScaleFactor, numberOfDataPoints=None, numberOfValues=None):
-        super().__init__(name)
-        self.codedValues = codedValues
+        self.numberOfDataPoints = numberOfDataPoints
+        self.bitmapPresent = bitmapPresent
         self.bitmap = bitmap
-        self.missingValue = missingValue
-        self.binaryScaleFactor = binaryScaleFactor
 
     def get(self, handle):
-
-        # TODO: grib2 alwats call apply_bitmap with bitmap undefined
-        if not handle._defined(self.bitmap):
-            return evaluate(self.codedValues, handle)
-
-        codedValues = evaluate(self.codedValues, handle)
-        bitmap = evaluate(self.bitmap, handle)
-        # missingValue = evaluate(self.missingValue, handle)
-        missingValue = np.NaN
-
-        values = np.empty(bitmap.shape)
-        values[:] = missingValue
-
-        j = 0
-        for i in range(0, len(bitmap)):
-            if bitmap[i]:
-                values[i] = codedValues[j]
-                j += 1
-
-        return values
+        bitmapPresent = evaluate(self.bitmapPresent, handle)
+        if bitmapPresent:
+            bitmap = evaluate(self.bitmap, handle)
+            return bitmap.sum()
+        else:
+            return evaluate(self.numberOfDataPoints, handle)
 
 
 class G2_mars_labeling(NoSize):
@@ -402,11 +338,11 @@ class G2grid(NoSize):
         basicAngleOfTheInitialProductionDomain = evaluate(self.basicAngleOfTheInitialProductionDomain, handle)
         subdivisionsOfBasicAngle = evaluate(self.subdivisionsOfBasicAngle, handle)
 
-        if basicAngleOfTheInitialProductionDomain == 0:
+        if basicAngleOfTheInitialProductionDomain in (0, None):
             basicAngleOfTheInitialProductionDomain = 1
 
-        if subdivisionsOfBasicAngle == 0xffffffff:
-            subdivisionsOfBasicAngle = 1000000
+        if subdivisionsOfBasicAngle in (0, None):
+            subdivisionsOfBasicAngle = 1000000.0
 
         values = (latitudeOfFirstGridPoint,
                   longitudeOfFirstGridPoint,
@@ -417,9 +353,15 @@ class G2grid(NoSize):
 
         basicAngleOfTheInitialProductionDomain = float(basicAngleOfTheInitialProductionDomain)
         subdivisionsOfBasicAngle = float(subdivisionsOfBasicAngle)
-        values = tuple(float(x) / subdivisionsOfBasicAngle * basicAngleOfTheInitialProductionDomain for x in values)
 
-        return values
+        result = []
+        for x in values:
+            if x is None:
+                result.append(x)
+            else:
+                result.append(float(x) / subdivisionsOfBasicAngle * basicAngleOfTheInitialProductionDomain)
+
+        return np.array(result)
 
 
 class G2bitmap_present(NoSize):
@@ -430,7 +372,7 @@ class G2bitmap_present(NoSize):
 
     def get(self, handle):
         bitMapIndicator = evaluate(self.bitMapIndicator, handle)
-        return 0 if bitMapIndicator in (0, 255) else 1
+        return bitMapIndicator not in (0, None)
 
 
 class Spd(Accessor):
@@ -464,7 +406,25 @@ class Statistics(NoSize):
         self.values = values
 
     def get(self, handle):
-        return (None, None, None, None, None, None, None, None)
+        values = evaluate(self.values, handle)
+
+        # skew = kurtosis = None
+        if True:
+            try:
+                import scipy.stats
+                skew = scipy.stats.skew(values, nan_policy='omit')
+                kurtosis = scipy.stats.kurtosis(values, nan_policy='omit')
+            except ModuleNotFoundError:
+                skew = kurtosis = "<requires scipy>"
+
+        return np.array([np.nanmax(values),
+                         np.nanmin(values),
+                         np.nanmean(values),
+                         np.count_nonzero(np.isnan(values)),
+                         np.nanstd(values),
+                         skew,
+                         kurtosis,
+                         np.all(values == values[np.nanargmin(values)])])  # is constant
 
 
 class Latitudes(NoSize):
@@ -529,9 +489,31 @@ class Number_of_points(NoSize):
         PLPresent = evaluate(self.PLPresent, handle)
 
         if PLPresent:
-            pl = evaluate(self.pl)
+            pl = evaluate(self.pl, handle)
             assert Nj == len(pl)
             return np.sum(pl)
 
         Ni = evaluate(self.Ni, handle)
         return Ni * Nj
+
+
+class Step_in_units(NoSize):
+
+    def __init__(self, name,
+                 forecastTime,
+                 indicatorOfUnitOfTimeRange,
+                 stepUnits,
+                 indicatorOfUnitForTimeRange=None,
+                 lengthOfTimeRange=None):
+        super().__init__(name)
+        self.forecastTime = forecastTime
+        self.indicatorOfUnitOfTimeRange = indicatorOfUnitOfTimeRange
+        self.stepUnits = stepUnits
+
+    def get(self, handle):
+        forecastTime = evaluate(self.forecastTime, handle)
+        indicatorOfUnitOfTimeRange = evaluate(self.indicatorOfUnitOfTimeRange, handle)
+        stepUnits = evaluate(self.stepUnits, handle)
+
+        assert indicatorOfUnitOfTimeRange == stepUnits
+        return forecastTime

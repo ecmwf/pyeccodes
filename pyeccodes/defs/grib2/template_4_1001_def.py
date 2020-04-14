@@ -18,7 +18,7 @@ def load(h):
     h.add(_.Codetable('indicatorOfUnitOfTimeRange', 1, "4.4.table", _.Get('masterDir'), _.Get('localDir')))
     h.alias('defaultStepUnits', 'one')
     _.Template('grib2/localConcepts/[centre:s]/default_step_units.def', True).load(h)
-    h.add(_.StringTransientCodetable('stepUnits', 1, "stepUnits.table"))
+    h.add(_.TransientCodetable('stepUnits', 1, "stepUnits.table"))
     h.add(_.Signed('forecastTime', 4))
     h.add(_.Unsigned('yearOfEndOfOverallTimeInterval', 2))
     h.add(_.Unsigned('monthOfEndOfOverallTimeInterval', 1))
@@ -47,12 +47,12 @@ def load(h):
         def stepTypeInternal_inline_concept(h):
             def wrapped(h):
 
-                typeOfStatisticalProcessing = h.get('typeOfStatisticalProcessing')
+                typeOfStatisticalProcessing = h.get_l('typeOfStatisticalProcessing')
 
                 if typeOfStatisticalProcessing == 255:
                     return 'instant'
 
-                typeOfTimeIncrement = h.get('typeOfTimeIncrement')
+                typeOfTimeIncrement = h.get_l('typeOfTimeIncrement')
 
                 if typeOfStatisticalProcessing == 0 and typeOfTimeIncrement == 2:
                     return 'avg'

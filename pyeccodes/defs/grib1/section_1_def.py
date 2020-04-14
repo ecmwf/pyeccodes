@@ -18,7 +18,7 @@ def load(h):
     h.add(_.Constant('wrongPadding', 0))
     h.add(_.Unsigned('table2Version', 1))
     h.alias('gribTablesVersionNo', 'table2Version')
-    h.add(_.Codetable('centre', 1, "common/c-1.table"))
+    h.add(_.StringCodetable('centre', 1, "common/c-1.table"))
     h.alias('identificationOfOriginatingGeneratingCentre', 'centre')
     h.add(_.Codetable_title('centreDescription', _.Get('centre')))
     h.alias('parameter.centre', 'centre')
@@ -33,7 +33,7 @@ def load(h):
     h.add(_.Codetable('indicatorOfParameter', 1, "grib1/2.[centreForTable2:l].[table2Version:l].table"))
     h.add(_.Codetable_title('parameterName', _.Get('indicatorOfParameter')))
     h.add(_.Codetable_units('parameterUnits', _.Get('indicatorOfParameter')))
-    h.add(_.Codetable('indicatorOfTypeOfLevel', 1, "3.table", _.Get('tablesLocalDir'), _.Get('tablesMasterDir')))
+    h.add(_.StringCodetable('indicatorOfTypeOfLevel', 1, "3.table", _.Get('tablesLocalDir'), _.Get('tablesMasterDir')))
     h.alias('levelType', 'indicatorOfTypeOfLevel')
     h.add(_.Transient('pressureUnits', "hPa"))
     h.add(_.Concept('typeOfLevelECMF', 'unknown', 'typeOfLevel.def', 'conceptsMasterDir', 'conceptsLocalDirECMF', True))
@@ -111,7 +111,7 @@ def load(h):
     h.add(_.Evaluate('year', (_.Get('dataDate') / 10000)))
     h.add(_.Time('dataTime', _.Get('hour'), _.Get('minute'), _.Get('second')))
     h.add(_.Julian_day('julianDay', _.Get('dataDate'), _.Get('hour'), _.Get('minute'), _.Get('second')))
-    h.add(_.StringTransientCodetable('stepUnits', 1, "stepUnits.table"))
+    h.add(_.TransientCodetable('stepUnits', 1, "stepUnits.table"))
     h.add(_.Concept('stepType', 'timeRangeIndicator', 'stepType.def', 'conceptsMasterDir', 'conceptsLocalDirAll', True))
 
     if (h.get_s('stepType') == "instant"):

@@ -11,7 +11,7 @@ def load(h):
     h.add(_.Unsigned('gridDefinition', 1))
     h.add(_.Codeflag('flag', 1, "grib1/1.table"))
     h.add(_.Codetable('indicatorOfParameter', 1, "grib1/2.[centre:l].[gribTablesVersionNo:l].table"))
-    h.add(_.Codetable('indicatorOfTypeOfLevel', 1, "grib1/3.table"))
+    h.add(_.StringCodetable('indicatorOfTypeOfLevel', 1, "grib1/3.table"))
     h.alias('ls.levelType', 'indicatorOfTypeOfLevel')
     h.add(_.Codetable('heightPressureEtcOfLevels', 2, "grib1/3.table"))
     h.add(_.Unsigned('yearOfCentury', 1))

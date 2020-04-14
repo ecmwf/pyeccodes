@@ -17,33 +17,40 @@ import os
 TABLES = {}
 
 
-def load_table(path, handle):
-    result = TABLES.get(path)
+def load_table(paths, handle):
+
+    result = TABLES.get(paths)
     if result is None:
         result = {}
-        for row in Table(path, True).load(handle):
-            result[row['code']] = row
+        for path in paths:
+            for row in Table(path, True).load(handle):
+                result[row['code']] = row
         TABLES[path] = result
     return result
 
 
 class CodetableMixin:
 
-    def path(self, handle):
+    def paths(self, handle):
 
         basename = evaluate(self.basename, handle)
         master = evaluate(self.master, handle)
         local = evaluate(self.local, handle)
 
         if (master or local) and basename:
-            path = local if local else master
-            return os.path.join(path, basename)
+            paths = []
+            if master:
+                paths += [os.path.join(master, basename)]
+            if local:
+                paths += [os.path.join(local, basename)]
+            return tuple(paths)
 
-        return basename
+        return (basename,)
 
     def table(self, handle):
         if self._table is None:
-            self._table = load_table(self.path(handle), handle)
+            self._table = load_table(self.paths(handle), handle)
+            assert self._table is not None, self.path(handle)
         return self._table
 
     def get_l(self, handle):
@@ -60,7 +67,8 @@ class CodetableMixin:
 
     def element(self, handle):
         code = self.code(handle)
-        return self.table(handle).get(code)
+        # assert self.table(handle).get(code), (code, self.paths(handle), self.table(handle))
+        return self.table(handle).get(code, {})
 
 
 class UnsignedCodetableMixin(Unsigned):
@@ -114,7 +122,7 @@ class TransientCodetable(NoSizeCodetable):
         return CodetableMixin.get_s(self, handle)
 
     def get(self, handle):
-        return CodetableMixin.get_r(self, handle)
+        return CodetableMixin.get_l(self, handle)
 
 
 class StringTransientCodetable(NoSizeCodetable):
@@ -131,7 +139,6 @@ class Codeflag(Unsigned):
     def __init__(self, name, length, path, *ignore):
         super().__init__(name, length)
         self.path = path
-
 
     # def get(self, handle):
     #     print(self.path)

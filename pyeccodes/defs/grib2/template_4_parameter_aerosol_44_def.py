@@ -25,7 +25,7 @@ def load(h):
     h.add(_.Codetable('indicatorOfUnitOfTimeRange', 1, "4.4.table", _.Get('masterDir'), _.Get('localDir')))
     h.alias('defaultStepUnits', 'one')
     _.Template('grib2/localConcepts/[centre:s]/default_step_units.def', True).load(h)
-    h.add(_.StringTransientCodetable('stepUnits', 1, "stepUnits.table"))
+    h.add(_.TransientCodetable('stepUnits', 1, "stepUnits.table"))
 
     if (h._new() or ((h.get_l('section4Length') - (4 * h.get_l('NV'))) == 45)):
         h.add(_.Unsigned('forecastTime', 2))

@@ -5,39 +5,39 @@ def load(h):
 
     def wrapped(h):
 
-        parameterCategory = h.get('parameterCategory')
-        parameterNumber = h.get('parameterNumber')
-        scaleFactorOfFirstFixedSurface = h.get('scaleFactorOfFirstFixedSurface')
-        scaledValueOfFirstFixedSurface = h.get('scaledValueOfFirstFixedSurface')
-        typeOfFirstFixedSurface = h.get('typeOfFirstFixedSurface')
-        typeOfSecondFixedSurface = h.get('typeOfSecondFixedSurface')
+        typeOfFirstFixedSurface = h.get_l('typeOfFirstFixedSurface')
+        typeOfSecondFixedSurface = h.get_l('typeOfSecondFixedSurface')
 
-        if parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 119 and typeOfSecondFixedSurface == 255:
-            return 'S'
+        if typeOfFirstFixedSurface == 255 and typeOfSecondFixedSurface == 255:
+            return 'default'
 
-        if parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 103 and typeOfSecondFixedSurface == 255:
-            return 'H'
-
-        ZLMULT = h.get('ZLMULT')
-
-        if ZLMULT == 0.01 and parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 100 and typeOfSecondFixedSurface == 255:
-            return 'P'
-
-        if parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 109 and typeOfSecondFixedSurface == 255:
-            return 'V'
-
-        if parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 20 and typeOfSecondFixedSurface == 255:
-            return 'T'
-
-        ZLBASE = h.get('ZLBASE')
-
-        if ZLBASE == 0.15 and parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 20 and typeOfSecondFixedSurface == 255:
-            return 'KT'
+        ZLBASE = h.get_l('ZLBASE')
+        parameterCategory = h.get_l('parameterCategory')
+        parameterNumber = h.get_l('parameterNumber')
+        scaleFactorOfFirstFixedSurface = h.get_l('scaleFactorOfFirstFixedSurface')
+        scaledValueOfFirstFixedSurface = h.get_l('scaledValueOfFirstFixedSurface')
 
         if ZLBASE == 0.15 and parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 20 and typeOfSecondFixedSurface == 255:
             return 'KB'
 
-        if typeOfFirstFixedSurface == 255 and typeOfSecondFixedSurface == 255:
-            return 'default'
+        if ZLBASE == 0.15 and parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 20 and typeOfSecondFixedSurface == 255:
+            return 'KT'
+
+        if parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 20 and typeOfSecondFixedSurface == 255:
+            return 'T'
+
+        if parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 109 and typeOfSecondFixedSurface == 255:
+            return 'V'
+
+        ZLMULT = h.get_l('ZLMULT')
+
+        if ZLMULT == 0.01 and parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 100 and typeOfSecondFixedSurface == 255:
+            return 'P'
+
+        if parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 103 and typeOfSecondFixedSurface == 255:
+            return 'H'
+
+        if parameterCategory == 255 and parameterNumber == 255 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfFirstFixedSurface == 119 and typeOfSecondFixedSurface == 255:
+            return 'S'
 
     return wrapped

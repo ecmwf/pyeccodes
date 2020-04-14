@@ -5,7 +5,7 @@ def load(h):
 
     def wrapped(h):
 
-        dummy = h.get('dummy')
+        dummy = h.get_l('dummy')
 
         if dummy == 0:
             return 'unknown'

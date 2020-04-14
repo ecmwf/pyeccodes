@@ -16,7 +16,7 @@ def load(h):
     def stepTypeInternal_inline_concept(h):
         def wrapped(h):
 
-            dummy = h.get('dummy')
+            dummy = h.get_l('dummy')
 
             if dummy == 1:
                 return 'instant'

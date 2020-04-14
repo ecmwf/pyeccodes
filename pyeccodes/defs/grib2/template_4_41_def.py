@@ -19,7 +19,7 @@ def load(h):
     h.add(_.Codetable('indicatorOfUnitOfTimeRange', 1, "4.4.table", _.Get('masterDir'), _.Get('localDir')))
     h.alias('defaultStepUnits', 'one')
     _.Template('grib2/localConcepts/[centre:s]/default_step_units.def', True).load(h)
-    h.add(_.StringTransientCodetable('stepUnits', 1, "stepUnits.table"))
+    h.add(_.TransientCodetable('stepUnits', 1, "stepUnits.table"))
     h.add(_.Signed('forecastTime', 4))
     h.add(_.Step_in_units('startStep', _.Get('forecastTime'), _.Get('indicatorOfUnitOfTimeRange'), _.Get('stepUnits')))
     h.add(_.G2end_step('endStep', _.Get('startStep'), _.Get('stepUnits')))
@@ -34,7 +34,7 @@ def load(h):
     def stepTypeInternal_inline_concept(h):
         def wrapped(h):
 
-            dummy = h.get('dummy')
+            dummy = h.get_l('dummy')
 
             if dummy == 1:
                 return 'instant'
@@ -54,7 +54,7 @@ def load(h):
     h.alias('time.validityDate', 'validityDate')
     h.add(_.Validity_time('validityTime', _.Get('dataDate'), _.Get('dataTime'), _.Get('step'), _.Get('stepUnits')))
     h.alias('time.validityTime', 'validityTime')
-    h.add(_.Codetable('typeOfFirstFixedSurface', 1, "4.5.table", _.Get('masterDir'), _.Get('localDir')))
+    h.add(_.StringCodetable('typeOfFirstFixedSurface', 1, "4.5.table", _.Get('masterDir'), _.Get('localDir')))
     h.add(_.Codetable_units('unitsOfFirstFixedSurface', _.Get('typeOfFirstFixedSurface')))
     h.add(_.Codetable_title('nameOfFirstFixedSurface', _.Get('typeOfFirstFixedSurface')))
     h.add(_.Signed('scaleFactorOfFirstFixedSurface', 1))
@@ -69,8 +69,8 @@ def load(h):
     def typeOfLevel_inline_concept(h):
         def wrapped(h):
 
-            typeOfFirstFixedSurface = h.get('typeOfFirstFixedSurface')
-            typeOfSecondFixedSurface = h.get('typeOfSecondFixedSurface')
+            typeOfFirstFixedSurface = h.get_l('typeOfFirstFixedSurface')
+            typeOfSecondFixedSurface = h.get_l('typeOfSecondFixedSurface')
 
             if typeOfFirstFixedSurface == 1 and typeOfSecondFixedSurface == 255:
                 return 'surface'
@@ -105,7 +105,7 @@ def load(h):
             if typeOfFirstFixedSurface == 20 and typeOfSecondFixedSurface == 255:
                 return 'isothermal'
 
-            pressureUnits = h.get('pressureUnits')
+            pressureUnits = h.get_s('pressureUnits')
 
             if typeOfFirstFixedSurface == 100 and typeOfSecondFixedSurface == 255 and pressureUnits == "Pa":
                 return 'isobaricInPa'
@@ -176,8 +176,8 @@ def load(h):
             if typeOfFirstFixedSurface == 151 and typeOfSecondFixedSurface == 151:
                 return 'soilLayer'
 
-            genVertHeightCoords = h.get('genVertHeightCoords')
-            NV = h.get('NV')
+            genVertHeightCoords = h.get_l('genVertHeightCoords')
+            NV = h.get_l('NV')
 
             if genVertHeightCoords == 1 and typeOfFirstFixedSurface == 150 and NV == 6:
                 return 'generalVertical'
@@ -200,8 +200,8 @@ def load(h):
             if typeOfFirstFixedSurface == 114 and typeOfSecondFixedSurface == 114:
                 return 'snowLayer'
 
-            scaleFactorOfFirstFixedSurface = h.get('scaleFactorOfFirstFixedSurface')
-            scaledValueOfFirstFixedSurface = h.get('scaledValueOfFirstFixedSurface')
+            scaleFactorOfFirstFixedSurface = h.get_l('scaleFactorOfFirstFixedSurface')
+            scaledValueOfFirstFixedSurface = h.get_l('scaledValueOfFirstFixedSurface')
 
             if typeOfFirstFixedSurface == 160 and scaleFactorOfFirstFixedSurface == 0 and scaledValueOfFirstFixedSurface == 0 and typeOfSecondFixedSurface == 255:
                 return 'oceanSurface'

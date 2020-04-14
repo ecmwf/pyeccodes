@@ -10,6 +10,7 @@ from .expression import evaluate
 from .base import NoSize
 import hashlib
 import os
+import numpy as np
 
 from .defs import VERSION
 
@@ -32,13 +33,15 @@ class Getenv(NoSize):
 
 class Sprintf(NoSize):
 
-    def __init__(self, name, format, *args):
+    def __init__(self, name, fmt, *args):
         super().__init__(name)
-        self.format = format
+        self.fmt = fmt
         self.args = args
 
     def get(self, handle):
-        return format % tuple(evaluate(x, handle) for x in self.args)
+        fmt = evaluate(self.fmt, handle)
+        args = tuple(evaluate(x, handle) for x in self.args)
+        return fmt % args
 
 
 class Scale(NoSize):
@@ -55,6 +58,10 @@ class Scale(NoSize):
         multiplier = evaluate(self.multiplier, handle)
         divisor = evaluate(self.divisor, handle)
         truncating = evaluate(self.truncating, handle)
+
+        if value is None:
+            return None
+
         result = float(value) * float(multiplier) / float(divisor)
         if truncating:
             result = int(result)
@@ -102,6 +109,10 @@ class VectorAccessor(NoSize):
     def get(self, handle):
         accessor = evaluate(self.accessor, handle)
         index = evaluate(self.index, handle)
+
+        assert isinstance(accessor, (list, tuple, np.ndarray)), (accessor, index)
+        assert index < len(accessor), (accessor, index)
+
         return accessor[index]
 
     def __repr__(self):
@@ -121,15 +132,13 @@ class Long_vector(VectorAccessor):
 
 class Size(NoSize):
 
-    def __init__(self, name, accessor):
+    def __init__(self, name, values):
         super().__init__(name)
-        self.accessor = accessor
+        self.values = values
 
-    # def get(self, handle):
-    #     # accessor = evaluate(self.accessor, handle)
-    #     accessor = handle.get(self.accessor)
-    #     assert False, (accessor, accessor.count)
-    #     return evaluate(accessor.count, handle)
+    def get(self, handle):
+        values = evaluate(self.values, handle)
+        return len(values)
 
     def __repr__(self):
-        return "Size(%s,%s)" % (self.name, self.accessor)
+        return "Size(%s,%s)" % (self.name, self.values)

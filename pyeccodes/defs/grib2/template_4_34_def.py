@@ -19,7 +19,7 @@ def load(h):
     h.add(_.Codetable('indicatorOfUnitOfTimeRange', 1, "4.4.table", _.Get('masterDir'), _.Get('localDir')))
     h.alias('defaultStepUnits', 'one')
     _.Template('grib2/localConcepts/[centre:s]/default_step_units.def', True).load(h)
-    h.add(_.StringTransientCodetable('stepUnits', 1, "stepUnits.table"))
+    h.add(_.TransientCodetable('stepUnits', 1, "stepUnits.table"))
     h.add(_.Signed('forecastTime', 4))
     h.add(_.Step_in_units('startStep', _.Get('forecastTime'), _.Get('indicatorOfUnitOfTimeRange'), _.Get('stepUnits')))
     h.add(_.G2end_step('endStep', _.Get('startStep'), _.Get('stepUnits')))
@@ -34,7 +34,7 @@ def load(h):
     def stepTypeInternal_inline_concept(h):
         def wrapped(h):
 
-            dummy = h.get('dummy')
+            dummy = h.get_l('dummy')
 
             if dummy == 1:
                 return 'instant'
@@ -103,12 +103,12 @@ def load(h):
         def stepTypeInternal_inline_concept(h):
             def wrapped(h):
 
-                typeOfStatisticalProcessing = h.get('typeOfStatisticalProcessing')
+                typeOfStatisticalProcessing = h.get_l('typeOfStatisticalProcessing')
 
                 if typeOfStatisticalProcessing == 255:
                     return 'instant'
 
-                typeOfTimeIncrement = h.get('typeOfTimeIncrement')
+                typeOfTimeIncrement = h.get_l('typeOfTimeIncrement')
 
                 if typeOfStatisticalProcessing == 0 and typeOfTimeIncrement == 2:
                     return 'avg'

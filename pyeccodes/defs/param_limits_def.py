@@ -3,13 +3,13 @@ import pyeccodes.accessors as _
 
 def load(h):
 
-    h.add(_.Constant('default_min_val', -1e+09))
-    h.add(_.Constant('default_max_val', 1e+09))
+    h.add(_.DoubleConstant('default_min_val', -1e+09))
+    h.add(_.DoubleConstant('default_max_val', 1e+09))
 
     def param_value_min_inline_concept(h):
         def wrapped(h):
 
-            paramId = h.get('paramId')
+            paramId = h.get_l('paramId')
 
             if paramId == 165:
                 return '-150'
@@ -83,7 +83,7 @@ def load(h):
             if paramId == 3073:
                 return 0
 
-            one = h.get('one')
+            one = h.get_l('one')
 
             if one == (_.Get('step') > 0) and paramId == 121:
                 return 160
@@ -248,7 +248,7 @@ def load(h):
     def param_value_max_inline_concept(h):
         def wrapped(h):
 
-            paramId = h.get('paramId')
+            paramId = h.get_l('paramId')
 
             if paramId == 165:
                 return 150

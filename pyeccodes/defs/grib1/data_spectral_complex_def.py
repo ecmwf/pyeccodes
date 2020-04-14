@@ -23,7 +23,7 @@ def load(h):
 
     h.add(_.Scale('laplacianOperator', _.Get('P'), _.Get('oneConstant'), _.Get('grib1divider'), _.Get('truncateLaplacian')))
     h.alias('data.laplacianOperator', 'laplacianOperator')
-    h.add(_.Evaluate('laplacianOperatorIsSet', ((_.Get('P') != _.Get('PUnset')) and not (_.Get('computeLaplacianOperator')))))
+    h.add(_.Evaluate('laplacianOperatorIsSet', _.And((_.Get('P') != _.Get('PUnset')), _.Not(_.Get('computeLaplacianOperator')))))
 
     if h.get_l('localUsePresent'):
 
