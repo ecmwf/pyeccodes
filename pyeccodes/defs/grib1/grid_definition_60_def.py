@@ -14,4 +14,4 @@ def load(h):
     h.add(_.Ibmfloat('angleOfRotationInDegrees', 4))
     h.alias('geography.angleOfRotationInDegrees', 'angleOfRotationInDegrees')
     h.alias('angleOfRotation', 'angleOfRotationInDegrees')
-    h.alias('is_rotated_grid', 'one')
+    h.alias('isRotatedGrid', 'one')

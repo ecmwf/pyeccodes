@@ -120,7 +120,7 @@ def load(h):
         h.add(_.Nearest('NEAREST', _.Get('latlon_reduced'), _.Get('values'), _.Get('radius'), _.Get('Nj'), _.Get('pl')))
     else:
         h.add(_.Transient('iteratorDisableUnrotate', 0))
-        h.add(_.Iterator('ITERATOR', _.Get('latlon'), _.Get('numberOfPoints'), _.Get('missingValue'), _.Get('values'), _.Get('longitudeFirstInDegrees'), _.Get('iInc'), _.Get('Ni'), _.Get('Nj'), _.Get('iScansNegatively'), _.Get('latitudeFirstInDegrees'), _.Get('DjInDegrees'), _.Get('jScansPositively')))
+        h.add(_.Iterator('ITERATOR', _.Get('latlon'), _.Get('numberOfPoints'), _.Get('missingValue'), _.Get('values'), _.Get('longitudeFirstInDegrees'), _.Get('iInc'), _.Get('Ni'), _.Get('Nj'), _.Get('iScansNegatively'), _.Get('latitudeFirstInDegrees'), _.Get('DjInDegrees'), _.Get('jScansPositively'), _.Get('jPointsAreConsecutive'), _.Get('isRotatedGrid'), _.Get('angleOfRotation'), _.Get('latitudeOfSouthernPoleInDegrees'), _.Get('longitudeOfSouthernPoleInDegrees')))
         h.add(_.Nearest('NEAREST', _.Get('regular'), _.Get('values'), _.Get('radius'), _.Get('Ni'), _.Get('Nj')))
 
     h.add(_.Latlonvalues('latLonValues', _.Get('values')))

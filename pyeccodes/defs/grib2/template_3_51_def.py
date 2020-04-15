@@ -28,4 +28,4 @@ def load(h):
     h.add(_.Ieeefloat('angleOfRotation', 4))
     h.alias('geography.angleOfRotationInDegrees', 'angleOfRotation')
     h.alias('angleOfRotationOfProjection', 'angleOfRotation')
-    h.alias('is_rotated_grid', 'one')
+    h.alias('isRotatedGrid', 'one')

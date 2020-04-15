@@ -21,7 +21,7 @@ def load(h):
 
     h.add(_.Codetable('gridDefinitionTemplateNumber', 2, "3.1.table", _.Get('masterDir'), _.Get('localDir')))
     h.add(_.Codetable_title('gridDefinitionDescription', _.Get('gridDefinitionTemplateNumber')))
-    h.alias('is_rotated_grid', 'zero')
+    h.alias('isRotatedGrid', 'zero')
     _.Template('grib2/template.3.[gridDefinitionTemplateNumber:l].def').load(h)
 
     if h.get_l('PLPresent'):

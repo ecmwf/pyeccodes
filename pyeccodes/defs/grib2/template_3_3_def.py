@@ -190,7 +190,7 @@ def load(h):
         h.add(_.Nearest('NEAREST', _.Get('latlon_reduced'), _.Get('values'), _.Get('radius'), _.Get('Nj'), _.Get('pl'), _.Get('longitudeFirstInDegrees'), _.Get('longitudeLastInDegrees')))
     else:
         h.add(_.Transient('iteratorDisableUnrotate', 0))
-        h.add(_.Iterator('ITERATOR', _.Get('latlon'), _.Get('numberOfPoints'), _.Get('missingValue'), _.Get('values'), _.Get('longitudeFirstInDegrees'), _.Get('DiInDegrees'), _.Get('Ni'), _.Get('Nj'), _.Get('iScansNegatively'), _.Get('latitudeFirstInDegrees'), _.Get('DjInDegrees'), _.Get('jScansPositively'), _.Get('jPointsAreConsecutive')))
+        h.add(_.Iterator('ITERATOR', _.Get('latlon'), _.Get('numberOfPoints'), _.Get('missingValue'), _.Get('values'), _.Get('longitudeFirstInDegrees'), _.Get('DiInDegrees'), _.Get('Ni'), _.Get('Nj'), _.Get('iScansNegatively'), _.Get('latitudeFirstInDegrees'), _.Get('DjInDegrees'), _.Get('jScansPositively'), _.Get('jPointsAreConsecutive'), _.Get('isRotatedGrid'), _.Get('angleOfRotation'), _.Get('latitudeOfSouthernPoleInDegrees'), _.Get('longitudeOfSouthernPoleInDegrees')))
         h.add(_.Nearest('NEAREST', _.Get('regular'), _.Get('values'), _.Get('radius'), _.Get('Ni'), _.Get('Nj')))
 
     h.add(_.Latlonvalues('latLonValues', _.Get('values')))
@@ -210,7 +210,7 @@ def load(h):
     h.add(_.Ieeefloat('angleOfRotation', 4))
     h.alias('geography.angleOfRotationInDegrees', 'angleOfRotation')
     h.alias('angleOfRotationOfProjection', 'angleOfRotation')
-    h.alias('is_rotated_grid', 'one')
+    h.alias('isRotatedGrid', 'one')
     h.add(_.Signed('latitudeOfThePoleOfStretching', 4))
     h.add(_.Signed('longitudeOfThePoleOfStretching', 4))
     h.add(_.Scale('latitudeOfStretchingPoleInDegrees', _.Get('latitudeOfThePoleOfStretching'), _.Get('oneConstant'), _.Get('grib2divider'), _.Get('truncateDegrees')))

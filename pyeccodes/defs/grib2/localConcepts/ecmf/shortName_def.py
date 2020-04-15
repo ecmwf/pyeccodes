@@ -2046,7 +2046,7 @@ def load(h):
             return 'mn2d24a'
 
         if discipline == 192 and parameterCategory == 171 and parameterNumber == 55:
-            return 'mn2t24a'
+            return 'mean2t24a'
 
         if discipline == 192 and parameterCategory == 171 and parameterNumber == 54:
             return 'pa'

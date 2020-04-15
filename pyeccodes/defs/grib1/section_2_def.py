@@ -17,7 +17,7 @@ def load(h):
     h.add(_.Unsigned('pvlLocation', 1))
     h.add(_.Codetable('dataRepresentationType', 1, "grib1/6.table"))
     h.add(_.Codetable_title('gridDefinitionDescription', _.Get('dataRepresentationType')))
-    h.alias('is_rotated_grid', 'zero')
+    h.alias('isRotatedGrid', 'zero')
 
     if (h.get_l('dataRepresentationType') < 192):
         _.Template('grib1/grid_definition_[dataRepresentationType:l].def').load(h)

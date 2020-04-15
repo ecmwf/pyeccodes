@@ -14,7 +14,7 @@ def load(h):
     h.add(_.Ibmfloat('angleOfRotationInDegrees', 4))
     h.alias('geography.angleOfRotationInDegrees', 'angleOfRotationInDegrees')
     h.alias('angleOfRotation', 'angleOfRotationInDegrees')
-    h.alias('is_rotated_grid', 'one')
+    h.alias('isRotatedGrid', 'one')
     h.add(_.Signed('latitudeOfStretchingPole', 3))
     h.add(_.Signed('longitudeOfStretchingPole', 3))
     h.add(_.Scale('latitudeOfStretchingPoleInDegrees', _.Get('latitudeOfStretchingPole'), _.Get('oneConstant'), _.Get('grib1divider'), _.Get('truncateDegrees')))

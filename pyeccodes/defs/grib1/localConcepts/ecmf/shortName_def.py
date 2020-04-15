@@ -2265,7 +2265,7 @@ def load(h):
             return 'mn2d24a'
 
         if table2Version == 171 and indicatorOfParameter == 55:
-            return 'mn2t24a'
+            return 'mean2t24a'
 
         if table2Version == 171 and indicatorOfParameter == 54:
             return 'pa'

@@ -28,7 +28,7 @@ def load(h):
     h.add(_.Ieeefloat('angleOfRotation', 4))
     h.alias('geography.angleOfRotationInDegrees', 'angleOfRotation')
     h.alias('angleOfRotationOfProjection', 'angleOfRotation')
-    h.alias('is_rotated_grid', 'one')
+    h.alias('isRotatedGrid', 'one')
     h.add(_.Signed('latitudeOfThePoleOfStretching', 4))
     h.add(_.Signed('longitudeOfThePoleOfStretching', 4))
     h.add(_.Scale('latitudeOfStretchingPoleInDegrees', _.Get('latitudeOfThePoleOfStretching'), _.Get('oneConstant'), _.Get('grib2divider'), _.Get('truncateDegrees')))
