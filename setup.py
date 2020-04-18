@@ -39,7 +39,7 @@ setuptools.setup(
     author='ECMWF',
     author_email='software.support@ecmwf.int',
     license='Apache 2.0',
-    url='https://github.com/b8raoult/pyeccodes',
+    url='https://github.com/ecmwf/pyeccodes',
     description="Experimental pure Python version of eccodes",
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
